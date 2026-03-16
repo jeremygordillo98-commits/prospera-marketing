@@ -32,21 +32,47 @@ function NewsSection() {
   if (news.length === 0) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="flex flex-col gap-8">
       {news.map((item) => (
-        <div key={item.id} className="glass-card p-6 rounded-2xl flex flex-col border border-slate-700/50 hover:border-[#00D68F]/30 transition-all group">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[#00D68F] text-[10px] font-bold uppercase tracking-wider bg-[#00D68F]/10 px-3 py-1 rounded-full">{item.category}</span>
-            <span className="text-slate-500 text-[10px]">{new Date(item.published_at).toLocaleDateString()}</span>
-          </div>
+        <div 
+          key={item.id} 
+          className="glass-card overflow-hidden rounded-3xl border border-slate-700/50 hover:border-[#00D68F]/30 transition-all group flex flex-col md:flex-row"
+        >
           {item.image_url && (
-             <img src={item.image_url} alt={item.title} className="w-full h-40 object-cover rounded-xl mb-4 border border-slate-800" />
+             <div className="md:w-1/3 h-64 md:h-auto relative overflow-hidden">
+                <img 
+                  src={item.image_url} 
+                  alt={item.title} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent md:hidden"></div>
+             </div>
           )}
-          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#00D68F] transition-colors">{item.title}</h3>
-          <p className="text-slate-400 text-sm leading-relaxed mb-4 flex-grow">{item.summary}</p>
-          <button className="text-[#00D68F] text-sm font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            Leer más <span>→</span>
-          </button>
+          <div className={`p-8 flex flex-col justify-center ${item.image_url ? 'md:w-2/3' : 'w-full'}`}>
+            <div className="flex items-center gap-4 mb-4">
+              <span className="text-[#00D68F] text-[10px] font-black uppercase tracking-[0.2em] bg-[#00D68F]/10 px-4 py-1.5 rounded-full border border-[#00D68F]/20">
+                {item.category}
+              </span>
+              <span className="text-slate-500 text-xs font-medium">
+                {new Date(item.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
+            </div>
+            
+            <h3 className="text-2xl md:text-3xl font-black text-white mb-4 group-hover:text-[#00D68F] transition-colors leading-tight">
+              {item.title}
+            </h3>
+            
+            <p className="text-slate-400 text-lg leading-relaxed mb-6">
+              {item.summary}
+            </p>
+
+            <div className="flex items-center gap-6">
+              <button className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all border border-slate-700 active:scale-95">
+                Leer noticia completa
+              </button>
+              <span className="text-slate-600 text-xs font-bold italic">PROSPERA NEWS • 2 MIN READ</span>
+            </div>
+          </div>
         </div>
       ))}
     </div>
