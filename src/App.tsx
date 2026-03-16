@@ -14,6 +14,7 @@ export default function App() {
     // CAMBIO IMPORTANTE: Ahora redirigimos al subdominio app.
     // Durante la transición, usaremos la URL completa.
     const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
+    console.log("Prospera Marketing - Dev Branch Active");
     window.location.href = `${baseUrl}/login?mode=${mode}`;
   };
 
