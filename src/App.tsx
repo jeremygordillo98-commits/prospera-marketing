@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { supabase } from './services/supabase';
 
 // Reutilizamos tu icono de logo
 const IconChart = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>;
@@ -8,6 +9,49 @@ const IconShield = () => <svg width="32" height="32" viewBox="0 0 24 24" fill="n
 const IconTrophy = () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00D68F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 21h8M12 17v4M7 4h10v3A5 5 0 0 1 12 12a5 5 0 0 1-5-5V4z"></path><path d="M7 4H4a2 2 0 0 0-2 2v1a6 6 0 0 0 6 6h1"></path><path d="M17 4h3a2 2 0 0 1 2 2v1a6 6 0 0 1-6 6h-1"></path></svg>;
 const IconBrain = () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00D68F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>;
 const IconCheck = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00D68F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>;
+
+function NewsSection() {
+  const [news, setNews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const { data } = await supabase
+        .from('public_news')
+        .select('*')
+        .eq('is_published', true)
+        .order('published_at', { ascending: false })
+        .limit(3);
+      if (data) setNews(data);
+      setLoading(false);
+    };
+    fetchNews();
+  }, []);
+
+  if (loading) return <div className="text-center text-slate-500 py-10">Cargando noticias...</div>;
+  if (news.length === 0) return null;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {news.map((item) => (
+        <div key={item.id} className="glass-card p-6 rounded-2xl flex flex-col border border-slate-700/50 hover:border-[#00D68F]/30 transition-all group">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-[#00D68F] text-[10px] font-bold uppercase tracking-wider bg-[#00D68F]/10 px-3 py-1 rounded-full">{item.category}</span>
+            <span className="text-slate-500 text-[10px]">{new Date(item.published_at).toLocaleDateString()}</span>
+          </div>
+          {item.image_url && (
+             <img src={item.image_url} alt={item.title} className="w-full h-40 object-cover rounded-xl mb-4 border border-slate-800" />
+          )}
+          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#00D68F] transition-colors">{item.title}</h3>
+          <p className="text-slate-400 text-sm leading-relaxed mb-4 flex-grow">{item.summary}</p>
+          <button className="text-[#00D68F] text-sm font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            Leer más <span>→</span>
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function App() {
   const goToView = (mode: 'login' | 'register') => {
@@ -284,6 +328,18 @@ export default function App() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* SECCIÓN DE NOTICIAS / COMUNICADOS */}
+      <section id="noticias" className="relative py-24 bg-[#0F172A] border-t border-slate-800/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">Lo más reciente de Prospera</h2>
+            <p className="text-slate-400 text-lg">Entérate de nuestras actualizaciones, nuevos tutoriales y tips de ahorro.</p>
+          </div>
+
+          <NewsSection />
         </div>
       </section>
 
