@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { supabase } from './services/supabase';
 
 // Reutilizamos tu icono de logo
@@ -20,6 +21,8 @@ import SubscriptionAuditor from './components/tools/SubscriptionAuditor';
 function NewsSection() {
   const [news, setNews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedNews, setSelectedNews] = useState<any | null>(null);
+  const { isDark } = { isDark: true }; // Simulado para consistencia
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -27,8 +30,7 @@ function NewsSection() {
         .from('public_news')
         .select('*')
         .eq('is_published', true)
-        .order('published_at', { ascending: false })
-        .limit(3);
+        .order('published_at', { ascending: false });
       if (data) setNews(data);
       setLoading(false);
     };
@@ -40,56 +42,126 @@ function NewsSection() {
 
   return (
     <section id="noticias" className="relative py-24 bg-[#0F172A] border-t border-slate-800/50">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-black text-white mb-4">Lo más reciente de Prospera</h2>
           <p className="text-slate-400 text-lg">Entérate de nuestras actualizaciones, nuevos tutoriales y tips de ahorro.</p>
         </div>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-10">
           {news.map((item) => (
             <div 
               key={item.id} 
-              className="glass-card overflow-hidden rounded-3xl border border-slate-700/50 hover:border-[#00D68F]/30 transition-all group flex flex-col md:flex-row"
+              className="glass-card overflow-hidden rounded-[2.5rem] border border-slate-700/50 hover:border-[#00D68F]/30 transition-all group flex flex-col md:flex-row shadow-2xl"
             >
               {item.image_url && (
-                <div className="md:w-1/3 h-64 md:h-auto relative overflow-hidden">
+                <div className="md:w-2/5 h-64 md:h-auto relative overflow-hidden">
                     <img 
                       src={item.image_url} 
                       alt={item.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent md:hidden"></div>
                 </div>
               )}
-              <div className={`p-8 flex flex-col justify-center ${item.image_url ? 'md:w-2/3' : 'w-full'}`}>
+              <div className={`p-8 md:p-12 flex flex-col justify-center ${item.image_url ? 'md:w-3/5' : 'w-full'}`}>
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-[#00D68F] text-[10px] font-black uppercase tracking-[0.2em] bg-[#00D68F]/10 px-4 py-1.5 rounded-full border border-[#00D68F]/20">
                     {item.category}
                   </span>
                   <span className="text-slate-500 text-xs font-medium">
-                    {new Date(item.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    {new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(item.published_at))}
                   </span>
                 </div>
                 
-                <h3 className="text-2xl md:text-3xl font-black text-white mb-4 group-hover:text-[#00D68F] transition-colors leading-tight">
+                <h3 className="text-3xl font-black text-white mb-4 group-hover:text-[#00D68F] transition-colors leading-tight">
                   {item.title}
                 </h3>
                 
-                <p className="text-slate-400 text-lg leading-relaxed mb-6">
+                <p className="text-slate-400 text-lg leading-relaxed mb-8 line-clamp-3">
                   {item.summary}
                 </p>
 
                 <div className="flex items-center gap-6">
-                  <button className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all border border-slate-700 active:scale-95">
+                  <button 
+                    onClick={() => setSelectedNews(item)}
+                    className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-2xl font-black text-sm transition-all border border-slate-700 active:scale-95 shadow-lg"
+                  >
                     Leer noticia completa
                   </button>
-                  <span className="text-slate-600 text-xs font-bold italic">PROSPERA NEWS • 2 MIN READ</span>
+                  <span className="text-slate-600 text-[10px] font-black italic tracking-widest uppercase">PROSPERA NEWS • 2 MIN READ</span>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* MODAL DE NOTICIA COMPLETA */}
+      {selectedNews && createPortal(
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 overflow-hidden animate-in fade-in duration-300">
+            <div 
+              onClick={() => setSelectedNews(null)}
+              className="absolute inset-0 bg-[#0b1120]/95 backdrop-blur-3xl cursor-zoom-out"
+            />
+            <div className="relative w-full max-w-3xl bg-[#0F172A] rounded-[3rem] border border-slate-700 shadow-[0_0_100px_rgba(0,0,0,0.8)] flex flex-col max-h-[90vh] overflow-hidden">
+                {/* Cabecera pegajosa */}
+                <div className="sticky top-0 z-20 bg-[#0F172A]/80 backdrop-blur-md p-6 border-b border-slate-800 flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                        <span className="text-[#00D68F] text-[10px] font-black uppercase tracking-widest bg-[#00D68F]/10 px-3 py-1 rounded-full border border-[#00D68F]/20">
+                            {selectedNews.category}
+                        </span>
+                        <span className="text-slate-500 text-xs font-bold">
+                            {new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(selectedNews.published_at))}
+                        </span>
+                    </div>
+                    <button 
+                      onClick={() => setSelectedNews(null)}
+                      className="bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-full transition-all active:scale-95"
+                    >
+                      <IconX />
+                    </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto">
+                    {selectedNews.image_url && (
+                        <div className="w-full h-64 sm:h-96 overflow-hidden">
+                            <img src={selectedNews.image_url} alt={selectedNews.title} className="w-full h-full object-cover" />
+                        </div>
+                    )}
+                    <div className="p-8 sm:p-16 max-w-4xl mx-auto">
+                        <h2 className="text-4xl sm:text-6xl font-black text-white mb-8 leading-[1.1] tracking-tight">
+                            {selectedNews.title}
+                        </h2>
+                        
+                        <div className="bg-[#00D68F]/5 p-8 rounded-3xl border-l-4 border-[#00D68F] mb-12 text-slate-300 text-xl md:text-2xl leading-relaxed italic font-medium">
+                            {selectedNews.summary}
+                        </div>
+
+                        <div className="prose prose-invert max-w-none text-slate-400 text-lg md:text-xl leading-loose space-y-8 font-light">
+                            {selectedNews.content?.split('\n').filter((p: string) => p.trim() !== '').map((para: string, i: number) => (
+                                <p key={i} className="mb-6">{para}</p>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="p-8 bg-slate-900/50 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
+                    <p className="text-slate-500 text-xs font-black uppercase tracking-widest">Prospera Editorial • Todos los derechos reservados</p>
+                    <button 
+                        onClick={() => {
+                            setSelectedNews(null);
+                            const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
+                            window.location.href = `${baseUrl}/login?mode=register`;
+                        }}
+                        className="bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black px-6 py-3 rounded-xl shadow-lg hover:scale-105 transition-all text-sm"
+                    >
+                       Empezar a Prosperar 🚀
+                    </button>
+                </div>
+            </div>
+        </div>,
+        document.body
+      )}
     </section>
   );
 }
