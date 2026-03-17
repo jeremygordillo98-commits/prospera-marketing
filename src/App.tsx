@@ -324,8 +324,8 @@ export default function App() {
           <div className="relative w-full max-w-[280px] md:max-w-md aspect-[9/16] bg-[#1E293B] rounded-[3rem] border-[10px] border-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden floating-img">
               
               <img 
-                src="/InicioCel.jpeg" 
-                alt="Pantalla de Inicio Prospera" 
+                src="/ChatBotIACel.jpeg" 
+                alt="ChatBot con Inteligencia Artificial de Prospera" 
                 className="w-full h-full object-cover"
               />
 
