@@ -1,5 +1,6 @@
 'use client';
 
+// Prospera Marketing - Home Page (Next.js Version)
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { supabase } from '@/services/supabase';
