@@ -35,54 +35,62 @@ function NewsSection() {
     fetchNews();
   }, []);
 
-  if (loading) return <div className="text-center text-slate-500 py-10">Cargando noticias...</div>;
+  if (loading) return null;
   if (news.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-8">
-      {news.map((item) => (
-        <div 
-          key={item.id} 
-          className="glass-card overflow-hidden rounded-3xl border border-slate-700/50 hover:border-[#00D68F]/30 transition-all group flex flex-col md:flex-row"
-        >
-          {item.image_url && (
-             <div className="md:w-1/3 h-64 md:h-auto relative overflow-hidden">
-                <img 
-                  src={item.image_url} 
-                  alt={item.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent md:hidden"></div>
-             </div>
-          )}
-          <div className={`p-8 flex flex-col justify-center ${item.image_url ? 'md:w-2/3' : 'w-full'}`}>
-            <div className="flex items-center gap-4 mb-4">
-              <span className="text-[#00D68F] text-[10px] font-black uppercase tracking-[0.2em] bg-[#00D68F]/10 px-4 py-1.5 rounded-full border border-[#00D68F]/20">
-                {item.category}
-              </span>
-              <span className="text-slate-500 text-xs font-medium">
-                {new Date(item.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </span>
-            </div>
-            
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-4 group-hover:text-[#00D68F] transition-colors leading-tight">
-              {item.title}
-            </h3>
-            
-            <p className="text-slate-400 text-lg leading-relaxed mb-6">
-              {item.summary}
-            </p>
-
-            <div className="flex items-center gap-6">
-              <button className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all border border-slate-700 active:scale-95">
-                Leer noticia completa
-              </button>
-              <span className="text-slate-600 text-xs font-bold italic">PROSPERA NEWS • 2 MIN READ</span>
-            </div>
-          </div>
+    <section id="noticias" className="relative py-24 bg-[#0F172A] border-t border-slate-800/50">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-4">Lo más reciente de Prospera</h2>
+          <p className="text-slate-400 text-lg">Entérate de nuestras actualizaciones, nuevos tutoriales y tips de ahorro.</p>
         </div>
-      ))}
-    </div>
+        <div className="flex flex-col gap-8">
+          {news.map((item) => (
+            <div 
+              key={item.id} 
+              className="glass-card overflow-hidden rounded-3xl border border-slate-700/50 hover:border-[#00D68F]/30 transition-all group flex flex-col md:flex-row"
+            >
+              {item.image_url && (
+                <div className="md:w-1/3 h-64 md:h-auto relative overflow-hidden">
+                    <img 
+                      src={item.image_url} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent md:hidden"></div>
+                </div>
+              )}
+              <div className={`p-8 flex flex-col justify-center ${item.image_url ? 'md:w-2/3' : 'w-full'}`}>
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="text-[#00D68F] text-[10px] font-black uppercase tracking-[0.2em] bg-[#00D68F]/10 px-4 py-1.5 rounded-full border border-[#00D68F]/20">
+                    {item.category}
+                  </span>
+                  <span className="text-slate-500 text-xs font-medium">
+                    {new Date(item.published_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  </span>
+                </div>
+                
+                <h3 className="text-2xl md:text-3xl font-black text-white mb-4 group-hover:text-[#00D68F] transition-colors leading-tight">
+                  {item.title}
+                </h3>
+                
+                <p className="text-slate-400 text-lg leading-relaxed mb-6">
+                  {item.summary}
+                </p>
+
+                <div className="flex items-center gap-6">
+                  <button className="bg-slate-800 hover:bg-slate-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all border border-slate-700 active:scale-95">
+                    Leer noticia completa
+                  </button>
+                  <span className="text-slate-600 text-xs font-bold italic">PROSPERA NEWS • 2 MIN READ</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -241,27 +249,88 @@ export default function App() {
 
         {/* Imagen Principal App - Derecha */}
         <div className="relative z-10 w-full lg:w-1/2 flex justify-center lg:justify-end">
-          <div className="relative w-full max-w-[280px] md:max-w-md aspect-[9/16] bg-[#1E293B] rounded-[2.5rem] border-[8px] border-slate-800 shadow-[0_20px_50px_rgba(0,214,143,0.2)] flex items-center justify-center overflow-hidden floating-img">
+          <div className="relative w-full max-w-[280px] md:max-w-md aspect-[9/16] bg-[#1E293B] rounded-[3rem] border-[10px] border-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden floating-img">
               
               <img 
-                src="/ReporteCel.jpeg" 
-                alt="Interior de la App Prospera" 
+                src="/InicioCel.jpeg" 
+                alt="Pantalla de Inicio Prospera" 
                 className="w-full h-full object-cover"
-                onError={(e: any) => {
-                    e.currentTarget.src = "/Dashboard.png"; 
-                    e.currentTarget.style.objectFit = "cover";
-                }}
               />
 
               {/* Reflejo estilo cristal sobre la pantalla */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"></div>
           </div>
           
-          {/* Elementos decorativos detrás del celular */}
+          {/* Tarjeta Flotante IA */}
+          <div className="absolute -bottom-10 -left-6 md:-left-12 z-20 glass-card p-4 rounded-2xl border border-[#00D68F]/30 shadow-2xl animate-bounce duration-[3000ms]">
+              <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-[#00D68F] rounded-lg flex items-center justify-center text-xl">🤖</div>
+                  <div>
+                      <p className="text-[10px] font-black uppercase text-[#00D68F] tracking-tighter">Asistente IA</p>
+                      <p className="text-xs font-bold text-white">"¡Ahorraste $20 hoy! 🚀"</p>
+                  </div>
+              </div>
+          </div>
+
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#7c3bed] rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
           <div className="absolute top-1/4 right-10 w-32 h-32 bg-[#00D68F] rounded-full blur-[80px] opacity-30 pointer-events-none"></div>
         </div>
       </header>
+
+      {/* SECCIÓN SHOWCASE - ESCRITORIO + MÓVIL */}
+      <section className="relative py-24 bg-[#0F172A] overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6">
+              <div className="flex flex-col lg:flex-row items-center gap-16">
+                  {/* Visuales a la izquierda */}
+                  <div className="w-full lg:w-3/5 relative">
+                      {/* Vista de Escritorio */}
+                      <div className="relative rounded-2xl border border-slate-700 shadow-2xl overflow-hidden bg-slate-900 aspect-video group">
+                          <img 
+                            src="/Dashboard.png" 
+                            alt="Prospera Desktop Dashboard" 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                      </div>
+
+                      {/* Vista de Celular Superpuesta */}
+                      <div className="absolute -bottom-12 -right-6 md:-right-10 w-48 md:w-64 aspect-[9/19] bg-slate-800 rounded-[2.5rem] border-[6px] border-slate-900 shadow-[0_30px_60px_rgba(0,0,0,0.8)] overflow-hidden hidden md:block group">
+                          <img 
+                            src="/ReporteCel.jpeg" 
+                            alt="Prospera Mobile View" 
+                            className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
+                          />
+                      </div>
+                  </div>
+
+                  {/* Texto a la derecha */}
+                  <div className="w-full lg:w-2/5 flex flex-col gap-6">
+                      <h2 className="text-4xl font-black text-white leading-tight">
+                          Una interfaz diseñada para el <span className="text-[#00D68F]">éxito.</span>
+                      </h2>
+                      <p className="text-slate-400 text-lg leading-relaxed">
+                          Ya sea que prefieras la profundidad de los reportes en tu computadora o la rapidez de registrar gastos desde tu celular, Prospera se adapta a ti.
+                      </p>
+                      
+                      <div className="grid grid-cols-1 gap-4 mt-4">
+                          {[
+                              { t: 'Multiplataforma', d: 'Sincronización instantánea entre todos tus dispositivos.', i: '🔄' },
+                              { t: 'Modo Oscuro & Claro', d: 'Personaliza tu experiencia visual según el momento del día.', i: '🌓' },
+                              { t: 'Análisis Visual', d: 'Gráficos avanzados que cualquier persona puede entender.', i: '📊' }
+                          ].map((item, idx) => (
+                              <div key={idx} className="flex gap-4 p-4 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:border-[#00D68F]/30 transition-colors">
+                                  <div className="text-2xl">{item.i}</div>
+                                  <div>
+                                      <h4 className="font-bold text-white mb-1">{item.t}</h4>
+                                      <p className="text-slate-500 text-sm">{item.d}</p>
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
 
       {/* SECCIÓN DE COMUNIDAD Y REDES SOCIALES */}
       <section className="relative py-20 bg-[#0F172A] border-t border-slate-800/50">
@@ -493,17 +562,7 @@ export default function App() {
         </div>
       )}
 
-      {/* SECCIÓN DE NOTICIAS / COMUNICADOS */}
-      <section id="noticias" className="relative py-24 bg-[#0F172A] border-t border-slate-800/50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">Lo más reciente de Prospera</h2>
-            <p className="text-slate-400 text-lg">Entérate de nuestras actualizaciones, nuevos tutoriales y tips de ahorro.</p>
-          </div>
-
-          <NewsSection />
-        </div>
-      </section>
+      <NewsSection />
 
       {/* SECCIÓN DE BENEFICIOS - RESUMEN */}
       <section className="relative py-24 bg-[#171121] border-t border-slate-800/50">
