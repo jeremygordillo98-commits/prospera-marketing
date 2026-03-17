@@ -9,6 +9,13 @@ const IconShield = () => <svg width="32" height="32" viewBox="0 0 24 24" fill="n
 const IconTrophy = () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00D68F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 21h8M12 17v4M7 4h10v3A5 5 0 0 1 12 12a5 5 0 0 1-5-5V4z"></path><path d="M7 4H4a2 2 0 0 0-2 2v1a6 6 0 0 0 6 6h1"></path><path d="M17 4h3a2 2 0 0 1 2 2v1a6 6 0 0 1-6 6h-1"></path></svg>;
 const IconBrain = () => <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00D68F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>;
 const IconCheck = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00D68F" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>;
+const IconX = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
+
+// Importación de Herramientas
+import AntExpenses from './components/tools/AntExpenses';
+import LoanStripper from './components/tools/LoanStripper';
+import FinancialHealthTest from './components/tools/FinancialHealthTest';
+import SubscriptionAuditor from './components/tools/SubscriptionAuditor';
 
 function NewsSection() {
   const [news, setNews] = useState<any[]>([]);
@@ -80,13 +87,47 @@ function NewsSection() {
 }
 
 export default function App() {
+  const [activeTool, setActiveTool] = useState<string | null>(null);
+
   const goToView = (mode: 'login' | 'register') => {
-    // CAMBIO IMPORTANTE: Ahora redirigimos al subdominio app.
-    // Durante la transición, usaremos la URL completa.
     const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
-    console.log("Prospera Marketing - Dev Branch Active");
     window.location.href = `${baseUrl}/login?mode=${mode}`;
   };
+
+  const tools = [
+    { 
+      id: 'ant', 
+      title: 'Detector de Gastos Hormiga', 
+      desc: '¿Cuánto te cuesta ese café diario en 10 años?', 
+      icon: '🐜', 
+      color: '#EF4444',
+      badge: 'VIRAL'
+    },
+    { 
+      id: 'loan', 
+      title: 'Desnudador de Préstamos', 
+      desc: 'Descubre la tasa real tras esas "cuotas cómodas".', 
+      icon: '💸', 
+      color: '#F59E0B',
+      badge: 'SHOCK'
+    },
+    { 
+      id: 'health', 
+      title: 'Test de Salud Financiera', 
+      desc: 'Descubre tu score y tu perfil financiero actual.', 
+      icon: '📈', 
+      color: '#3B82F6',
+      badge: 'POPULAR'
+    },
+    { 
+      id: 'subs', 
+      title: 'Auditor de Suscripciones', 
+      desc: '¿Sabes cuánto gastas al año en streaming y apps?', 
+      icon: '🔎', 
+      color: '#7C3BED',
+      badge: 'NUEVO'
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-[#0F172A] text-slate-100 font-sans overflow-x-hidden selection:bg-[#00D68F] selection:text-white">
@@ -110,6 +151,25 @@ export default function App() {
               50% { transform: translateY(-15px); }
               100% { transform: translateY(0px); }
           }
+          @keyframes slideUp {
+              from { transform: translateY(20px); opacity: 0; }
+              to { transform: translateY(0px); opacity: 1; }
+          }
+          @keyframes fadeIn {
+              from { opacity: 0; }
+              to { opacity: 1; }
+          }
+          @keyframes zoomIn {
+              from { transform: scale(0.9); opacity: 0; }
+              to { transform: scale(1); opacity: 1; }
+          }
+          .animate-in {
+              animation-duration: 0.6s;
+              animation-fill-mode: both;
+          }
+          .fade-in { animation-name: fadeIn; }
+          .slide-in-from-bottom-4 { animation-name: slideUp; }
+          .zoom-in { animation-name: zoomIn; }
         `}
       </style>
 
@@ -356,6 +416,82 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* SECCIÓN LABORATERIO FINANCIERO (THE LAB) */}
+      <section id="herramientas" className="relative py-24 bg-[#0F172A] border-t border-slate-800/50">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-96 bg-[#00D68F]/5 blur-[120px] pointer-events-none"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block px-4 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+              Herramientas Gratuitas
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Laboratorio Prospera 🧪</h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto italic">
+              "La claridad financiera comienza con un simple dato. Usa nuestras herramientas y descubre la verdad sobre tu dinero."
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {tools.map((tool) => (
+              <div 
+                key={tool.id}
+                onClick={() => setActiveTool(tool.id)}
+                className="glass-card p-8 rounded-[2.5rem] border border-slate-700/50 hover:border-[#00D68F]/40 transition-all cursor-pointer group flex flex-col items-center text-center relative overflow-hidden"
+              >
+                <div className="absolute top-4 right-4 bg-slate-900 border border-slate-700 px-3 py-1 rounded-full text-[8px] font-black text-slate-400 group-hover:text-[#00D68F] transition-colors">
+                  {tool.badge}
+                </div>
+                
+                <div 
+                  className="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl mb-6 shadow-2xl transition-transform group-hover:scale-110 duration-500"
+                  style={{ background: `linear-gradient(135deg, ${tool.color}20 0%, ${tool.color}40 100%)`, border: `1px solid ${tool.color}40` }}
+                >
+                  {tool.icon}
+                </div>
+
+                <h3 className="text-xl font-black text-white mb-3 group-hover:text-[#00D68F] transition-colors leading-tight">{tool.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">{tool.desc}</p>
+                
+                <span className="text-[#00D68F] text-xs font-black uppercase tracking-widest flex items-center gap-2">
+                  Probar ahora <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* MODAL DE HERRAMIENTAS */}
+      {activeTool && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-hidden animate-in fade-in duration-300">
+          <div 
+            onClick={() => setActiveTool(null)}
+            className="absolute inset-0 bg-[#0b1120]/95 backdrop-blur-xl cursor-zoom-out"
+          />
+          <div className="relative w-full max-w-3xl bg-[#0F172A] rounded-[3rem] border border-slate-700 shadow-[0_0_80px_rgba(0,0,0,0.8)] flex flex-col max-h-[90vh] overflow-hidden">
+            {/* Botón Cerrar */}
+            <button 
+              onClick={() => setActiveTool(null)}
+              className="absolute top-6 right-6 z-20 bg-slate-800/80 hover:bg-slate-700 text-white p-3 rounded-full transition-all active:scale-95"
+            >
+              <IconX />
+            </button>
+
+            <div className="flex-1 overflow-y-auto p-8 sm:p-12">
+               {activeTool === 'ant' && <AntExpenses onRegister={() => goToView('register')} />}
+               {activeTool === 'loan' && <LoanStripper onRegister={() => goToView('register')} />}
+               {activeTool === 'health' && <FinancialHealthTest onRegister={() => goToView('register')} />}
+               {activeTool === 'subs' && <SubscriptionAuditor onRegister={() => goToView('register')} />}
+            </div>
+
+            {/* Footer del Modal */}
+            <div className="p-6 bg-slate-900/50 border-t border-slate-800 text-center">
+               <p className="text-slate-500 text-xs font-bold uppercase tracking-[0.3em]">Potenciado por Prospera Lab</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* SECCIÓN DE NOTICIAS / COMUNICADOS */}
       <section id="noticias" className="relative py-24 bg-[#0F172A] border-t border-slate-800/50">
