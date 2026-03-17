@@ -5,13 +5,17 @@ interface LoanStripperProps {
 }
 
 export default function LoanStripper({ onRegister }: LoanStripperProps) {
-  const [cashPrice, setCashPrice] = useState<number>(350);
-  const [monthlyPayment, setMonthlyPayment] = useState<number>(25);
+  const [cashPriceInput, setCashPriceInput] = useState<string>("350");
+  const [monthlyPaymentInput, setMonthlyPaymentInput] = useState<string>("25");
   const [months, setMonths] = useState<number>(24);
+
+  // Normalización para cálculos
+  const cashPrice = parseFloat(cashPriceInput.replace(',', '.')) || 0;
+  const monthlyPayment = parseFloat(monthlyPaymentInput.replace(',', '.')) || 0;
 
   const totalPaid = monthlyPayment * months;
   const totalInterest = totalPaid - cashPrice;
-  const extraPercentage = (totalInterest / cashPrice) * 100;
+  const extraPercentage = cashPrice > 0 ? (totalInterest / cashPrice) * 100 : 0;
 
   const formatCurrency = (val: number) => 
     new Intl.NumberFormat('es-EC', { style: 'currency', currency: 'USD' }).format(val);
@@ -27,18 +31,20 @@ export default function LoanStripper({ onRegister }: LoanStripperProps) {
         <div className="bg-slate-800/50 p-5 rounded-2xl border border-slate-700">
           <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Precio de contado</label>
           <input 
-            type="number" 
-            value={cashPrice}
-            onChange={(e) => setCashPrice(Number(e.target.value))}
+            type="text" 
+            inputMode="decimal"
+            value={cashPriceInput}
+            onChange={(e) => setCashPriceInput(e.target.value.replace(/[^0-9.,]/g, ''))}
             className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-xl font-bold text-white outline-none focus:border-[#00D68F]"
           />
         </div>
         <div className="bg-slate-800/50 p-5 rounded-2xl border border-slate-700">
           <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Cuota mensual</label>
           <input 
-            type="number" 
-            value={monthlyPayment}
-            onChange={(e) => setMonthlyPayment(Number(e.target.value))}
+            type="text" 
+            inputMode="decimal"
+            value={monthlyPaymentInput}
+            onChange={(e) => setMonthlyPaymentInput(e.target.value.replace(/[^0-9.,]/g, ''))}
             className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-xl font-bold text-white outline-none focus:border-[#00D68F]"
           />
         </div>

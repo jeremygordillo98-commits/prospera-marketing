@@ -5,7 +5,10 @@ interface AntExpensesProps {
 }
 
 export default function AntExpenses({ onRegister }: AntExpensesProps) {
-  const [dailyAmount, setDailyAmount] = useState<number>(5);
+  const [dailyInput, setDailyInput] = useState<string>("5");
+  
+  // Convertir string a número (manejando puntos y comas)
+  const dailyAmount = parseFloat(dailyInput.replace(',', '.')) || 0;
   
   const weekly = dailyAmount * 7;
   const monthly = dailyAmount * 30;
@@ -29,9 +32,13 @@ export default function AntExpenses({ onRegister }: AntExpensesProps) {
         <div className="relative">
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-[#00D68F] font-black">$</span>
           <input 
-            type="number" 
-            value={dailyAmount}
-            onChange={(e) => setDailyAmount(Number(e.target.value))}
+            type="text" 
+            inputMode="decimal"
+            value={dailyInput}
+            onChange={(e) => {
+              const val = e.target.value.replace(/[^0-9.,]/g, '');
+              setDailyInput(val);
+            }}
             className="w-full bg-slate-900 border-2 border-slate-700 rounded-xl py-4 pl-12 pr-4 text-3xl font-black text-white outline-none focus:border-[#00D68F] transition-all"
             placeholder="0.00"
           />
