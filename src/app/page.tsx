@@ -192,46 +192,56 @@ export default function Home() {
       
 
       {/* NAVBAR */}
-      <nav className="w-full fixed top-0 z-50 glass-card px-6 py-4 flex justify-between items-center border-b border-slate-800/50">
+      <nav className="w-full fixed top-0 z-50 glass-card px-4 sm:px-6 py-4 flex justify-between items-center border-b border-slate-800/50">
         <div className="flex items-center gap-2 text-[#00D68F]">
           <IconChart />
-          <span className="text-xl font-black tracking-tighter uppercase text-slate-50">Prospera</span>
+          <span className="text-lg sm:text-xl font-black tracking-tighter uppercase text-slate-50">Prospera</span>
         </div>
-        <div className="flex items-center gap-3">
-          <button onClick={() => goToView('login')} className="hidden sm:block text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-800/50 px-4 py-2 rounded-lg transition-colors">
-            Iniciar Sesión
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button onClick={() => goToView('login')} className="block text-xs sm:text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-800/50 px-2 sm:px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+            <span className="hidden sm:inline">Iniciar Sesión</span>
+            <span className="sm:hidden">Ingresar</span>
           </button>
-          <button onClick={() => goToView('register')} className="text-sm font-bold text-[#0F172A] bg-gradient-to-r from-[#00D68F] to-[#059669] hover:from-[#00F0A0] hover:to-[#05B680] px-5 py-2.5 rounded-lg transition-all shadow-[0_0_15px_rgba(0,214,143,0.3)] hover:shadow-[0_0_25px_rgba(0,214,143,0.5)] transform hover:scale-105">
+          <button onClick={() => goToView('register')} className="text-xs sm:text-sm font-bold text-[#0F172A] bg-gradient-to-r from-[#00D68F] to-[#059669] hover:from-[#00F0A0] hover:to-[#05B680] px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg transition-all shadow-[0_0_15px_rgba(0,214,143,0.3)] hover:shadow-[0_0_25px_rgba(0,214,143,0.5)] transform hover:scale-105 whitespace-nowrap">
             Registrarse Gratis
           </button>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <header className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6 flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto min-h-screen">
+      <header className="relative pt-24 pb-12 lg:pt-48 lg:pb-32 px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto min-h-[calc(100vh-80px)] lg:min-h-screen">
         <div className="absolute inset-0 neural-bg opacity-60 pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-[#0F172A] via-transparent to-[#7c3bed]/10 opacity-80 pointer-events-none"></div>
-        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left mb-16 lg:mb-0 pr-0 lg:pr-12">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[#00D68F]/10 border border-[#00D68F]/30 text-[#00D68F] text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+        <div className="relative z-10 w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left mb-8 lg:mb-0 pr-0 lg:pr-12">
+          <div className="inline-block px-3 py-1 lg:px-4 lg:py-1.5 rounded-full bg-[#00D68F]/10 border border-[#00D68F]/30 text-[#00D68F] text-[10px] md:text-xs font-bold tracking-widest uppercase mb-4 md:mb-6 shadow-sm">
             La Nueva Era de tus Finanzas
           </div>
-          <h1 className="text-5xl md:text-6xl font-black text-white mb-6 leading-[1.1]">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4 md:mb-6 leading-[1.1]">
             Domina tu dinero.<br/> 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D68F] to-[#059669]">Logra tus metas.</span>
           </h1>
-          <p className="text-slate-400 text-lg md:text-xl font-light leading-relaxed mb-8 max-w-xl">
+          <p className="text-slate-400 text-sm sm:text-base md:text-xl font-light leading-relaxed mb-6 md:mb-8 max-w-xl">
             Deja atrás las hojas de cálculo aburridas y el estrés de no saber en qué gastas. Prospera es el asistente financiero inteligente que convierte el ahorro en un juego donde tú siempre ganas.
           </p>
-          <div className="flex flex-col gap-3 mb-10 text-slate-300 text-sm md:text-base text-left">
-            <div className="flex items-center gap-3 justify-center lg:justify-start"><IconCheck /> <span>Alertas de gastos para no salirte del presupuesto.</span></div>
-            <div className="flex items-center gap-3 justify-center lg:justify-start"><IconCheck /> <span>Consejos personalizados con Inteligencia Artificial.</span></div>
-            <div className="flex items-center gap-3 justify-center lg:justify-start"><IconCheck /> <span>Gamificación: Gana medallas al cumplir tus metas.</span></div>
+          <div className="flex flex-col gap-2 md:gap-3 mb-8 md:mb-10 text-slate-300 text-xs sm:text-sm md:text-base text-left">
+            <div className="flex items-center gap-2 justify-center lg:justify-start">
+              <span className="scale-75 md:scale-100 transform flex-shrink-0"><IconCheck /></span>
+              <span>Alertas de gastos para no salirte del presupuesto.</span>
+            </div>
+            <div className="flex items-center gap-2 justify-center lg:justify-start">
+              <span className="scale-75 md:scale-100 transform flex-shrink-0"><IconCheck /></span>
+              <span>Consejos personalizados con Inteligencia Artificial.</span>
+            </div>
+            <div className="flex items-center gap-2 justify-center lg:justify-start">
+              <span className="scale-75 md:scale-100 transform flex-shrink-0"><IconCheck /></span>
+              <span>Gamificación: Gana medallas al cumplir tus metas.</span>
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
-            <button onClick={() => goToView('register')} className="bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black text-xl px-10 py-4 rounded-xl shadow-[0_0_20px_rgba(0,214,143,0.4)] hover:shadow-[0_0_35px_rgba(0,214,143,0.7)] hover:-translate-y-1 hover:scale-105 transition-all w-full sm:w-auto border border-[#00F0A0]/50">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+            <button onClick={() => goToView('register')} className="bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black text-base sm:text-lg md:text-xl px-6 py-3.5 md:px-10 md:py-4 rounded-xl shadow-[0_0_20px_rgba(0,214,143,0.4)] hover:shadow-[0_0_35px_rgba(0,214,143,0.7)] hover:-translate-y-1 hover:scale-105 transition-all w-full sm:w-auto border border-[#00F0A0]/50">
               Comenzar Gratis Hoy
             </button>
-            <button onClick={() => goToView('login')} className="bg-[#1E293B] text-white font-bold text-lg px-8 py-4 rounded-xl border border-slate-600 hover:bg-slate-700 hover:border-slate-500 hover:-translate-y-1 transition-all w-full sm:w-auto">
+            <button onClick={() => goToView('login')} className="bg-[#1E293B] text-white font-bold text-base sm:text-lg px-6 py-3.5 md:px-8 md:py-4 rounded-xl border border-slate-600 hover:bg-slate-700 hover:border-slate-500 hover:-translate-y-1 transition-all w-full sm:w-auto">
               Ya tengo cuenta
             </button>
           </div>
