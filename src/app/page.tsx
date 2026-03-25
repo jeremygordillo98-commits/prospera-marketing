@@ -199,6 +199,12 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-2 sm:gap-4">
           <a 
+            href="https://contable.prosperafinanzas.com" 
+            className="hidden md:block text-xs font-black uppercase tracking-widest text-[#00D68F] hover:text-white transition-colors"
+          >
+            Módulo Contable 📄
+          </a>
+          <a 
             href="https://pymes.prosperafinanzas.com" 
             className="hidden md:block text-xs font-black uppercase tracking-widest text-[#00D68F] hover:text-white transition-colors"
           >
