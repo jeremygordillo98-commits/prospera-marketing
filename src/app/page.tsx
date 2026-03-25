@@ -197,7 +197,13 @@ export default function Home() {
           <IconChart />
           <span className="text-lg sm:text-xl font-black tracking-tighter uppercase text-slate-50">Prospera</span>
         </div>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <a 
+            href="https://pymes.prosperafinanzas.com" 
+            className="hidden md:block text-xs font-black uppercase tracking-widest text-[#00D68F] hover:text-white transition-colors"
+          >
+            Módulo Pymes 💼
+          </a>
           <button onClick={() => goToView('login')} className="block text-xs sm:text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-800/50 px-2 sm:px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
             <span className="hidden sm:inline">Iniciar Sesión</span>
             <span className="sm:hidden">Ingresar</span>
@@ -245,6 +251,9 @@ export default function Home() {
               Ya tengo cuenta
             </button>
           </div>
+          <p className="mt-8 text-slate-500 text-sm font-medium">
+            💼 ¿Dueño de Negocio? Prueba <a href="https://pymes.prosperafinanzas.com" className="text-[#00D68F] font-black hover:underline">Prospera Pymes</a>
+          </p>
         </div>
         <div className="relative z-10 w-full lg:w-1/2 flex justify-center lg:justify-end">
           <div className="relative w-full max-w-[280px] md:max-w-md aspect-[9/16] bg-[#1E293B] rounded-[3rem] border-[10px] border-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden floating-img">
