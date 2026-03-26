@@ -16,6 +16,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Prospera - Domina tu dinero, logra tus metas",
   description: "Prospera es el asistente financiero inteligente que convierte el ahorro en un juego. Controla tus gastos, presupuestos y ahorra como un experto.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/pwa-icon.png",
+    apple: "/pwa-icon.png",
+  },
+  themeColor: "#0f172a",
 };
 
 export default function RootLayout({
