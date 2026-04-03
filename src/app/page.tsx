@@ -3,6 +3,7 @@
 // Prospera Marketing - Home Page (Next.js Version)
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import Image from 'next/image';
 import { supabase } from '@/services/supabase';
 
 // Iconos y sub-componentes se mantienen igual pero con rutas Next.js
@@ -57,10 +58,12 @@ function NewsSection() {
             >
               {item.image_url && (
                 <div className="md:w-2/5 h-64 md:h-auto relative overflow-hidden">
-                  <img
+                  <Image
                     src={item.image_url}
                     alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent md:hidden"></div>
                 </div>
@@ -126,7 +129,7 @@ function NewsSection() {
             <div className="flex-1 overflow-y-auto">
               {selectedNews.image_url && (
                 <div className="w-full h-64 sm:h-96 overflow-hidden">
-                  <img src={selectedNews.image_url} alt={selectedNews.title} className="w-full h-full object-cover" />
+                  <Image src={selectedNews.image_url} alt={selectedNews.title} fill sizes="(max-width: 768px) 100vw, 100vw" className="object-cover" />
                 </div>
               )}
               <div className="p-8 sm:p-16 max-w-4xl mx-auto">
@@ -148,16 +151,12 @@ function NewsSection() {
 
             <div className="p-8 bg-slate-900/50 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-6">
               <p className="text-slate-500 text-xs font-black uppercase tracking-widest">Prospera Editorial • Todos los derechos reservados</p>
-              <button
-                onClick={() => {
-                  setSelectedNews(null);
-                  const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
-                  window.location.href = `${baseUrl}/login?mode=register`;
-                }}
-                className="bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black px-6 py-3 rounded-xl shadow-lg hover:scale-105 transition-all text-sm"
+              <a
+                href={typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5173/login?mode=register' : 'https://app.prosperafinanzas.com/login?mode=register'}
+                className="bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black px-6 py-3 rounded-xl shadow-lg hover:scale-105 transition-all text-sm block"
               >
                 Empezar a Prosperar 🚀
-              </button>
+              </a>
             </div>
           </div>
         </div>,
@@ -175,9 +174,9 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  const goToView = (mode: 'login' | 'register') => {
-    const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
-    window.location.href = `${baseUrl}/login?mode=${mode}`;
+  const getAppUrl = (mode: 'login' | 'register') => {
+    const baseUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
+    return `${baseUrl}/login?mode=${mode}`;
   };
 
   const tools = [
@@ -204,13 +203,13 @@ export default function Home() {
           >
             Módulo Pymes 💼
           </a> */}
-          <button onClick={() => goToView('login')} className="block text-xs sm:text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-800/50 px-2 sm:px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
+          <a href={getAppUrl('login')} className="block text-xs sm:text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-800/50 px-2 sm:px-4 py-2 rounded-lg transition-colors whitespace-nowrap">
             <span className="hidden sm:inline">Iniciar Sesión</span>
             <span className="sm:hidden">Ingresar</span>
-          </button>
-          <button onClick={() => goToView('register')} className="text-xs sm:text-sm font-bold text-[#0F172A] bg-gradient-to-r from-[#00D68F] to-[#059669] hover:from-[#00F0A0] hover:to-[#05B680] px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg transition-all shadow-[0_0_15px_rgba(0,214,143,0.3)] hover:shadow-[0_0_25px_rgba(0,214,143,0.5)] transform hover:scale-105 whitespace-nowrap">
+          </a>
+          <a href={getAppUrl('register')} className="text-xs sm:text-sm font-bold text-[#0F172A] bg-gradient-to-r from-[#00D68F] to-[#059669] hover:from-[#00F0A0] hover:to-[#05B680] px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg transition-all shadow-[0_0_15px_rgba(0,214,143,0.3)] hover:shadow-[0_0_25px_rgba(0,214,143,0.5)] transform hover:scale-105 whitespace-nowrap">
             Registrarse Gratis
-          </button>
+          </a>
         </div>
       </nav>
 
@@ -244,12 +243,12 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-            <button onClick={() => goToView('register')} className="bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black text-base sm:text-lg md:text-xl px-6 py-3.5 md:px-10 md:py-4 rounded-xl shadow-[0_0_20px_rgba(0,214,143,0.4)] hover:shadow-[0_0_35px_rgba(0,214,143,0.7)] hover:-translate-y-1 hover:scale-105 transition-all w-full sm:w-auto border border-[#00F0A0]/50">
+            <a href={getAppUrl('register')} className="text-center bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black text-base sm:text-lg md:text-xl px-6 py-3.5 md:px-10 md:py-4 rounded-xl shadow-[0_0_20px_rgba(0,214,143,0.4)] hover:shadow-[0_0_35px_rgba(0,214,143,0.7)] hover:-translate-y-1 hover:scale-105 transition-all w-full sm:w-auto border border-[#00F0A0]/50">
               Comenzar Gratis Hoy
-            </button>
-            <button onClick={() => goToView('login')} className="bg-[#1E293B] text-white font-bold text-base sm:text-lg px-6 py-3.5 md:px-8 md:py-4 rounded-xl border border-slate-600 hover:bg-slate-700 hover:border-slate-500 hover:-translate-y-1 transition-all w-full sm:w-auto">
+            </a>
+            <a href={getAppUrl('login')} className="text-center bg-[#1E293B] text-white font-bold text-base sm:text-lg px-6 py-3.5 md:px-8 md:py-4 rounded-xl border border-slate-600 hover:bg-slate-700 hover:border-slate-500 hover:-translate-y-1 transition-all w-full sm:w-auto">
               Ya tengo cuenta
-            </button>
+            </a>
           </div>
           {/* <p className="mt-8 text-slate-500 text-sm font-medium">
             💼 ¿Dueño de Negocio? Prueba <a href="https://pymes.prosperafinanzas.com" className="text-[#00D68F] font-black hover:underline">Prospera Pymes</a>
@@ -257,7 +256,7 @@ export default function Home() {
         </div>
         <div className="relative z-10 w-full lg:w-1/2 flex justify-center lg:justify-end">
           <div className="relative w-full max-w-[280px] md:max-w-md aspect-[9/16] bg-[#1E293B] rounded-[3rem] border-[10px] border-slate-800 shadow-[0_20px_60px_rgba(0,0,0,0.5)] flex items-center justify-center overflow-hidden floating-img">
-            <img src="/ChatBotIACel.jpeg" alt="ChatBot con IA de Prospera" className="w-full h-full object-cover" />
+            <Image src="/ChatBotIACel.jpeg" alt="ChatBot con IA de Prospera" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" priority />
             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"></div>
           </div>
           <div className="absolute -bottom-10 -left-6 md:-left-12 z-20 glass-card p-4 rounded-2xl border border-[#00D68F]/30 shadow-2xl animate-bounce duration-[3000ms]">
@@ -278,10 +277,10 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="w-full lg:w-3/5 relative">
               <div className="relative rounded-2xl border border-slate-700 shadow-2xl overflow-hidden bg-slate-900 aspect-video group">
-                <img src="/Dashboard.png" alt="Prospera Desktop Dashboard" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <Image src="/Dashboard.png" alt="Prospera Desktop Dashboard" fill sizes="(max-width: 768px) 100vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="absolute -bottom-12 -right-6 md:-right-10 w-48 md:w-64 aspect-[9/19] bg-slate-800 rounded-[2.5rem] border-[6px] border-slate-900 shadow-[0_30px_60px_rgba(0,0,0,0.8)] overflow-hidden hidden md:block group">
-                <img src="/ReporteCel.jpeg" alt="Prospera Mobile View" className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110" />
+                <Image src="/ReporteCel.jpeg" alt="Prospera Mobile View" fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover transition-all duration-500 group-hover:brightness-110" />
               </div>
             </div>
             <div className="w-full lg:w-2/5 flex flex-col gap-6">
@@ -349,10 +348,10 @@ export default function Home() {
           <div onClick={() => setActiveTool(null)} className="absolute inset-0 bg-black/90 backdrop-blur-xl" />
           <div className="relative w-full max-w-3xl bg-[#0F172A] rounded-[3rem] border border-slate-700 p-8 sm:p-12 overflow-y-auto max-h-[90vh]">
             <button onClick={() => setActiveTool(null)} className="absolute top-6 right-6 text-white"><IconX /></button>
-            {activeTool === 'ant' && <AntExpenses onRegister={() => goToView('register')} />}
-            {activeTool === 'loan' && <LoanStripper onRegister={() => goToView('register')} />}
-            {activeTool === 'health' && <FinancialHealthTest onRegister={() => goToView('register')} />}
-            {activeTool === 'subs' && <SubscriptionAuditor onRegister={() => goToView('register')} />}
+            {activeTool === 'ant' && <AntExpenses onRegister={() => window.location.href = getAppUrl('register')} />}
+            {activeTool === 'loan' && <LoanStripper onRegister={() => window.location.href = getAppUrl('register')} />}
+            {activeTool === 'health' && <FinancialHealthTest onRegister={() => window.location.href = getAppUrl('register')} />}
+            {activeTool === 'subs' && <SubscriptionAuditor onRegister={() => window.location.href = getAppUrl('register')} />}
           </div>
         </div>,
         document.body
