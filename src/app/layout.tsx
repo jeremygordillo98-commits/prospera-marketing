@@ -31,6 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <link rel="preconnect" href="https://app.prosperafinanzas.com" />
+        <link rel="dns-prefetch" href="https://app.prosperafinanzas.com" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
