@@ -40,15 +40,28 @@ function NewsSection() {
           <p className="text-slate-400">Tutoriales y actualidad financiera.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {news.map((item) => (
-            <div key={item.id} className="glass-card rounded-3xl border border-white/5 overflow-hidden group hover:border-[#00D68F]/30 transition-all flex flex-col cursor-pointer" onClick={() => setSelectedNews(item)}>
-              {item.image_url && <div className="w-full aspect-video relative overflow-hidden"><Image src={item.image_url} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" /></div>}
-              <div className="p-6">
-                <h3 className="text-xl font-black text-white mb-2 leading-tight line-clamp-2">{item.title}</h3>
-                <p className="text-slate-500 text-xs line-clamp-2">{item.summary}</p>
+          {news.map((item) => {
+            const borderColors: Record<string, string> = {
+              'Actualización': 'hover:border-slate-500/50 border-white/5',
+              'Tip Financiero': 'hover:border-[#00D68F]/50 border-white/5',
+              'Aviso Importante': 'hover:border-orange-500/50 border-white/5',
+              'Nueva Funcionalidad': 'hover:border-violet-500/50 border-white/5'
+            };
+            const borderColor = borderColors[item.category] || 'hover:border-[#00D68F]/30 border-white/5';
+            
+            return (
+              <div key={item.id} className={`glass-card rounded-3xl border ${borderColor} overflow-hidden group transition-all flex flex-col cursor-pointer shadow-xl`} onClick={() => setSelectedNews(item)}>
+                {item.image_url && <div className="w-full aspect-video relative overflow-hidden"><Image src={item.image_url} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" /></div>}
+                <div className="p-6 overflow-hidden">
+                  <div className="flex justify-between items-start mb-4">
+                     <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 ${item.category === 'Tip Financiero' ? 'text-[#00D68F]' : item.category === 'Aviso Importante' ? 'text-orange-400' : item.category === 'Nueva Funcionalidad' ? 'text-violet-400' : 'text-slate-400'}`}>{item.category}</span>
+                  </div>
+                  <h3 className="text-xl font-black text-white mb-2 leading-tight line-clamp-2">{item.title}</h3>
+                  <p className="text-slate-500 text-xs line-clamp-2">{item.summary}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
       {selectedNews && mounted && createPortal(
