@@ -48,13 +48,13 @@ function NewsSection() {
               'Nueva Funcionalidad': 'hover:border-violet-500/50 border-white/5'
             };
             const borderColor = borderColors[item.category] || 'hover:border-[#00D68F]/30 border-white/5';
-            
+
             return (
               <div key={item.id} className={`glass-card rounded-3xl border ${borderColor} overflow-hidden group transition-all flex flex-col cursor-pointer shadow-xl`} onClick={() => setSelectedNews(item)}>
                 {item.image_url && <div className="w-full aspect-video relative overflow-hidden"><Image src={item.image_url} alt={item.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" /></div>}
                 <div className="p-6 overflow-hidden">
                   <div className="flex justify-between items-start mb-4">
-                     <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 ${item.category === 'Tip Financiero' ? 'text-[#00D68F]' : item.category === 'Aviso Importante' ? 'text-orange-400' : item.category === 'Nueva Funcionalidad' ? 'text-violet-400' : 'text-slate-400'}`}>{item.category}</span>
+                    <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-white/5 ${item.category === 'Tip Financiero' ? 'text-[#00D68F]' : item.category === 'Aviso Importante' ? 'text-orange-400' : item.category === 'Nueva Funcionalidad' ? 'text-violet-400' : 'text-slate-400'}`}>{item.category}</span>
                   </div>
                   <h3 className="text-xl font-black text-white mb-2 leading-tight line-clamp-2">{item.title}</h3>
                   <p className="text-slate-500 text-xs line-clamp-2">{item.summary}</p>
@@ -68,16 +68,16 @@ function NewsSection() {
         <div className="fixed inset-0 z-[1100] flex items-center justify-center p-4">
           <div onClick={() => setSelectedNews(null)} className="absolute inset-0 bg-black/95 backdrop-blur-3xl" />
           <div className="relative w-full max-w-2xl bg-[#0F172A] rounded-[2.5rem] border border-white/10 shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
-             <div className="p-6 border-b border-white/5 flex justify-between items-center">
-                <span className="text-[#00D68F] text-[10px] font-black uppercase tracking-widest">{selectedNews.category}</span>
-                <button onClick={() => setSelectedNews(null)} className="text-white p-2 hover:bg-white/5 rounded-full transition-all"><IconX /></button>
-             </div>
-             <div className="flex-1 overflow-y-auto p-8 md:p-12">
-                <h2 className="text-3xl font-black text-white mb-6 leading-tight">{selectedNews.title}</h2>
-                <div className="prose prose-invert max-w-none text-slate-400 text-base leading-relaxed space-y-4">
-                  {selectedNews.content?.split('\n').filter((p: string) => p.trim() !== '').map((para: string, i: number) => <p key={i}>{para}</p>)}
-                </div>
-             </div>
+            <div className="p-6 border-b border-white/5 flex justify-between items-center">
+              <span className="text-[#00D68F] text-[10px] font-black uppercase tracking-widest">{selectedNews.category}</span>
+              <button onClick={() => setSelectedNews(null)} className="text-white p-2 hover:bg-white/5 rounded-full transition-all"><IconX /></button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-8 md:p-12">
+              <h2 className="text-3xl font-black text-white mb-6 leading-tight">{selectedNews.title}</h2>
+              <div className="prose prose-invert max-w-none text-slate-400 text-base leading-relaxed space-y-4">
+                {selectedNews.content?.split('\n').filter((p: string) => p.trim() !== '').map((para: string, i: number) => <p key={i}>{para}</p>)}
+              </div>
+            </div>
           </div>
         </div>,
         document.body
@@ -117,14 +117,14 @@ export default function MarketingHome() {
       <nav className="w-full fixed top-0 z-[1000] glass-card border-b border-white/5 backdrop-blur-xl h-20 flex items-center">
         {/* Backdrop para cerrar menús al hacer clic fuera */}
         {activeMenu && (
-          <div 
-            className="fixed inset-0 bg-transparent z-[1005]" 
+          <div
+            className="fixed inset-0 bg-transparent z-[1005]"
             onClick={() => setActiveMenu(null)}
           />
         )}
-        
+
         <div className="w-full px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto relative z-[1010]">
-          <div className="flex items-center gap-2 text-[#00D68F] flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+          <div className="flex items-center gap-2 text-[#00D68F] flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <IconChart />
             <span className="text-xl font-black tracking-tighter uppercase text-white">Prospera</span>
           </div>
@@ -136,11 +136,11 @@ export default function MarketingHome() {
               { label: 'Lab', items: tools.map(t => ({ l: t.title, p: t.path, i: t.icon })) }
             ].map(menu => (
               <div key={menu.label} className="relative flex items-center h-full">
-                <div 
+                <div
                   onClick={() => setActiveMenu(activeMenu === menu.label ? null : menu.label)}
                   className={`flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] transition-colors whitespace-nowrap py-10 md:py-8 cursor-pointer ${activeMenu === menu.label ? 'text-white' : 'text-slate-400 hover:text-white'}`}
                 >
-                   {menu.label} <IconChevronDown />
+                  {menu.label} <IconChevronDown />
                 </div>
                 <div className={`absolute top-full left-1/2 -translate-x-1/2 min-w-[200px] bg-[#0b1120] border border-white/10 rounded-b-2xl shadow-2xl transition-all overflow-hidden z-[1020] ${activeMenu === menu.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                   {menu.items.map((sub: any) => (
@@ -152,7 +152,7 @@ export default function MarketingHome() {
                 </div>
               </div>
             ))}
-            
+
             <a href={getAppUrl('register')} className="hidden lg:block bg-[#00D68F] text-[#0F172A] font-black px-6 py-2.5 rounded-xl text-xs uppercase hover:scale-105 transition-all shadow-lg active:scale-95 cursor-pointer">Empezar Ahora</a>
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function MarketingHome() {
       {/* HERO SECTION */}
       <header className="relative pt-40 pb-20 px-6 w-full flex flex-col items-center justify-center min-h-[80vh] text-center max-w-7xl mx-auto">
         <h1 className="text-5xl md:text-9xl font-black text-white mb-8 leading-[1] tracking-tighter max-w-5xl mx-auto text-balance">
-           Tu mundo financiero en <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D68F] to-[#059669]">alta definición.</span>
+          Tu mundo financiero en <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D68F] to-[#059669]">alta definición.</span>
         </h1>
         <p className="text-slate-400 text-lg md:text-2xl font-light mb-12 max-w-3xl mx-auto leading-relaxed">Fusionamos inteligencia artificial y control absoluto para potenciar la vida financiera de personas y empresas.</p>
       </header>
@@ -171,7 +171,7 @@ export default function MarketingHome() {
         <div className="w-full px-6 flex flex-col lg:flex-row items-center gap-24 max-w-7xl mx-auto">
           <div className="lg:w-1/2">
             <h4 className="text-[#00D68F] text-2xl md:text-4xl font-black uppercase tracking-[0.3em] mb-6 leading-none">Prospera App</h4>
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-10 leading-[1.1]">Control total de tus <br/> <span className="text-[#00D68F]">finanzas personales.</span></h2>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-10 leading-[1.1]">Control total de tus <br /> <span className="text-[#00D68F]">finanzas personales.</span></h2>
             <div className="space-y-8 text-left">
               {[
                 { t: 'Inteligencia Predictiva', d: 'Analizamos tus patrones históricos para anticipar gastos futuros y optimizar tu flujo de caja mensual con precisión milimétrica.', i: '🔮' },
@@ -189,12 +189,12 @@ export default function MarketingHome() {
             </div>
           </div>
           <div className="lg:w-1/2 relative group">
-             <div className="relative w-full aspect-[16/10] rounded-[3rem] border-[12px] border-slate-900 shadow-2xl overflow-hidden bg-slate-900 cursor-zoom-in">
-                <Image src="/Dashboard.png" alt="Dashboard App" fill className="object-contain" />
-             </div>
-             <div className="absolute -bottom-8 -right-8 w-1/2 aspect-[9/19] rounded-[2.5rem] border-[8px] border-slate-900 shadow-2xl overflow-hidden hidden lg:block translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
-                <Image src="/InicioCel.jpeg" alt="Mobile View" fill className="object-cover" />
-             </div>
+            <div className="relative w-full aspect-[16/10] rounded-[3rem] border-[12px] border-slate-900 shadow-2xl overflow-hidden bg-slate-900 cursor-zoom-in">
+              <Image src="/Dashboard.png" alt="Dashboard App" fill className="object-contain" />
+            </div>
+            <div className="absolute -bottom-8 -right-8 w-1/2 aspect-[9/19] rounded-[2.5rem] border-[8px] border-slate-900 shadow-2xl overflow-hidden hidden lg:block translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+              <Image src="/InicioCel.jpeg" alt="Mobile View" fill className="object-cover" />
+            </div>
           </div>
         </div>
       </section>
@@ -204,7 +204,7 @@ export default function MarketingHome() {
         <div className="w-full px-6 flex flex-col lg:flex-row-reverse items-center gap-24 max-w-7xl mx-auto">
           <div className="lg:w-1/2">
             <h4 className="text-[#7c3bed] text-2xl md:text-4xl font-black uppercase tracking-[0.3em] mb-6 leading-none">Prospera Pymes</h4>
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-10 leading-[1.1]">Potencia el motor de <br/> <span className="text-[#7c3bed]">tu negocio.</span></h2>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-10 leading-[1.1]">Potencia el motor de <br /> <span className="text-[#7c3bed]">tu negocio.</span></h2>
             <div className="space-y-8 text-left">
               {[
                 { t: 'Gestión XML Centralizada', d: 'Importa tus facturas electrónicas masivamente y deja que nuestro sistema clasifique tus movimientos de forma automática.', i: '⚡' },
@@ -222,12 +222,12 @@ export default function MarketingHome() {
             </div>
           </div>
           <div className="lg:w-1/2 relative group">
-             <div className="relative w-full aspect-[16/10] rounded-[3rem] border-[12px] border-slate-900 shadow-2xl overflow-hidden bg-slate-900 cursor-zoom-in">
-                <Image src="/Pymes1.png" alt="Pymes Workspace" fill className="object-contain" />
-             </div>
-             <div className="absolute -bottom-8 -left-8 w-[60%] aspect-[16/10] rounded-[2rem] border-[8px] border-slate-900 shadow-2xl overflow-hidden hidden lg:block translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
-                <Image src="/Pymes2.png" alt="Pymes Reports" fill className="object-cover" />
-             </div>
+            <div className="relative w-full aspect-[16/10] rounded-[3rem] border-[12px] border-slate-900 shadow-2xl overflow-hidden bg-slate-900 cursor-zoom-in">
+              <Image src="/Pymes1.png" alt="Pymes Workspace" fill className="object-contain" />
+            </div>
+            <div className="absolute -bottom-8 -left-8 w-[60%] aspect-[16/10] rounded-[2rem] border-[8px] border-slate-900 shadow-2xl overflow-hidden hidden lg:block translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+              <Image src="/Pymes2.png" alt="Pymes Reports" fill className="object-cover" />
+            </div>
           </div>
         </div>
       </section>
@@ -235,18 +235,18 @@ export default function MarketingHome() {
       {/* SECCIÓN: MURAL COLLAGE */}
       <section className="py-40 w-full bg-[#0F172A] relative overflow-hidden min-h-[950px] flex items-center justify-center">
         <div className="absolute inset-0 z-0 grid grid-cols-5 md:grid-cols-7 lg:grid-cols-10 gap-2 p-2 transform rotate-2 scale-110 pointer-events-none opacity-90">
-           {Array.from({ length: 60 }).map((_, i) => (
-              <div key={i} className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-2xl shadow-black border border-white/5">
-                 <Image src={`/${collageImages[i % collageImages.length]}`} alt="UI Shot" fill className="object-cover" />
-              </div>
-           ))}
+          {Array.from({ length: 60 }).map((_, i) => (
+            <div key={i} className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-2xl shadow-black border border-white/5">
+              <Image src={`/${collageImages[i % collageImages.length]}`} alt="UI Shot" fill className="object-cover" />
+            </div>
+          ))}
         </div>
         <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-[#0F172A] via-[#0F172A]/80 to-transparent z-10" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-transparent z-10" />
         <div className="relative z-20 text-center px-6 max-w-5xl">
-           <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Multidispositivo</span>
-           <h2 className="text-6xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-none shadow-black drop-shadow-2xl">Ecosistema <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D68F] to-[#7c3bed]">Ilimitado.</span></h2>
-           <p className="text-slate-200 text-xl md:text-2xl font-bold bg-[#0F172A]/40 backdrop-blur-md px-8 py-4 rounded-full border border-white/10 w-fit mx-auto shadow-2xl">Prospera acompaña cada paso de tu vida financiera.</p>
+          <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Multidispositivo</span>
+          <h2 className="text-6xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-none shadow-black drop-shadow-2xl">Ecosistema <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D68F] to-[#7c3bed]">Ilimitado.</span></h2>
+          <p className="text-slate-200 text-xl md:text-2xl font-bold bg-[#0F172A]/40 backdrop-blur-md px-8 py-4 rounded-full border border-white/10 w-fit mx-auto shadow-2xl">Prospera acompaña cada paso de tu vida financiera.</p>
         </div>
       </section>
 
@@ -256,38 +256,38 @@ export default function MarketingHome() {
       <footer className="bg-[#0F172A] border-t border-white/5 pt-32 pb-16 w-full">
         <div className="w-full px-6 md:px-16 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
           <div className="md:col-span-12 lg:col-span-5 space-y-10">
-            <div className="flex items-center gap-3 text-[#00D68F] cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+            <div className="flex items-center gap-3 text-[#00D68F] cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <IconChart /><span className="text-4xl font-black text-white uppercase tracking-tighter leading-none translate-y-1">Prospera</span>
             </div>
             <p className="text-slate-400 text-xl leading-relaxed max-w-lg">Redefiniendo el futuro de la gestión financiera con elegancia, precisión e inteligencia artificial.</p>
           </div>
-          
+
           <div className="md:col-span-6 lg:col-span-4 space-y-8">
             <h4 className="text-white font-black uppercase text-xs tracking-widest text-slate-500">Contacto Directo</h4>
             <div className="flex flex-col gap-4">
-               <a href="mailto:soporte@prosperafinanzas.com" className="text-slate-300 hover:text-[#00D68F] text-lg font-black transition-all border-b-2 border-transparent hover:border-[#00D68F] pb-1 w-fit">soporte@prosperafinanzas.com</a>
-               <a href="mailto:prosperaapp.soporte@gmail.com" className="text-slate-300 hover:text-[#00D68F] text-lg font-black transition-all border-b-2 border-transparent hover:border-[#00D68F] pb-1 w-fit">prosperaapp.soporte@gmail.com</a>
+              <a href="mailto:soporte@prosperafinanzas.com" className="text-slate-300 hover:text-[#00D68F] text-lg font-black transition-all border-b-2 border-transparent hover:border-[#00D68F] pb-1 w-fit">soporte@prosperafinanzas.com</a>
+              <a href="mailto:prosperaapp.soporte@gmail.com" className="text-slate-300 hover:text-[#00D68F] text-lg font-black transition-all border-b-2 border-transparent hover:border-[#00D68F] pb-1 w-fit">prosperaapp.soporte@gmail.com</a>
             </div>
           </div>
 
           <div className="md:col-span-6 lg:col-span-3 space-y-8">
             <h4 className="text-white font-black uppercase text-xs tracking-widest text-slate-500">Ecosistema Social</h4>
             <div className="flex gap-4">
-               {[
-                 { i: <IconInstagram />, c: 'hover:bg-[#E1306C]', p: 'https://instagram.com/prosperafinanzas.ec' },
-                 { i: <IconYouTube />, c: 'hover:bg-red-600', p: 'https://www.youtube.com/channel/UCmgiCjzAr-DEEl-dCWT6CMA' },
-                 { i: <IconFacebook />, c: 'hover:bg-blue-600', p: 'https://www.facebook.com/profile.php?id=61587202734480' },
-                 { i: <IconTikTok />, c: 'hover:bg-white/20', p: 'https://www.tiktok.com/@prosperafinanzas?is_from_webapp=1&sender_device=pc' }
-               ].map((s, i) => (
-                 <a key={i} href={s.p} target="_blank" className={`p-4 bg-white/5 rounded-2xl transition-all text-white border border-white/5 cursor-pointer ${s.c}`}>{s.i}</a>
-               ))}
+              {[
+                { i: <IconInstagram />, c: 'hover:bg-[#E1306C]', p: 'https://instagram.com/prosperafinanzas.ec' },
+                { i: <IconYouTube />, c: 'hover:bg-red-600', p: 'https://www.youtube.com/channel/UCmgiCjzAr-DEEl-dCWT6CMA' },
+                { i: <IconFacebook />, c: 'hover:bg-blue-600', p: 'https://www.facebook.com/profile.php?id=61587202734480' },
+                { i: <IconTikTok />, c: 'hover:bg-white/20', p: 'https://www.tiktok.com/@prosperafinanzas?is_from_webapp=1&sender_device=pc' }
+              ].map((s, i) => (
+                <a key={i} href={s.p} target="_blank" className={`p-4 bg-white/5 rounded-2xl transition-all text-white border border-white/5 cursor-pointer ${s.c}`}>{s.i}</a>
+              ))}
             </div>
           </div>
         </div>
-        
+
         <div className="w-full px-6 md:px-16 max-w-7xl mx-auto pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-            <p className="text-slate-600 text-[11px] font-black uppercase tracking-widest">© {new Date().getFullYear()} Prospera. Todos los derechos reservados.</p>
-            <a href="https://app.prosperafinanzas.com/terms" target="_blank" className="text-slate-600 hover:text-white transition-all text-[11px] font-black uppercase tracking-widest hover:underline underline-offset-8 cursor-pointer">Términos y condiciones</a>
+          <p className="text-slate-600 text-[11px] font-black uppercase tracking-widest">© {new Date().getFullYear()} Prospera. Todos los derechos reservados.</p>
+          <a href="https://app.prosperafinanzas.com/terms" target="_blank" className="text-slate-600 hover:text-white transition-all text-[11px] font-black uppercase tracking-widest hover:underline underline-offset-8 cursor-pointer">Términos y condiciones</a>
         </div>
       </footer>
     </div>
