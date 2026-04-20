@@ -90,6 +90,14 @@ export default function MarketingHome() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = () => setActiveMenu(null);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   const getAppUrl = (mode: 'login' | 'register') => {
     const baseUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
     return `${baseUrl}/login?mode=${mode}`;
@@ -126,10 +134,16 @@ export default function MarketingHome() {
               { label: 'Lab', items: tools.map(t => ({ l: t.title, p: t.path, i: t.icon })) }
             ].map(menu => (
               <div key={menu.label} className="relative group flex items-center h-full">
-                <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white cursor-pointer transition-colors whitespace-nowrap py-10 md:py-8">
+                <div 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveMenu(activeMenu === menu.label ? null : menu.label);
+                  }}
+                  className="flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white cursor-pointer transition-colors whitespace-nowrap py-10 md:py-8"
+                >
                    {menu.label} <IconChevronDown />
                 </div>
-                <div className="absolute top-full left-1/2 -translate-x-1/2 min-w-[200px] bg-[#0b1120] border border-white/10 rounded-b-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all overflow-hidden z-[1010]">
+                <div className={`absolute top-full left-1/2 -translate-x-1/2 min-w-[200px] bg-[#0b1120] border border-white/10 rounded-b-2xl shadow-2xl transition-all overflow-hidden z-[1010] ${activeMenu === menu.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'}`}>
                   {menu.items.map((sub: any) => (
                     <a key={sub.l} href={sub.p} target={menu.label === 'Lab' ? '_blank' : '_self'} className="block px-7 py-4 text-xs font-bold text-slate-300 hover:bg-white/5 flex items-center gap-4 transition-colors border-b border-white/5 last:border-0 cursor-pointer">
                       {sub.i && <span>{sub.i}</span>}
