@@ -133,7 +133,7 @@ export default function MarketingHome() {
               { label: 'Pymes', items: [{ l: 'Próximamente', p: '#' }] },
               { label: 'Lab', items: tools.map(t => ({ l: t.title, p: t.path, i: t.icon })) }
             ].map(menu => (
-              <div key={menu.label} className="relative group flex items-center h-full">
+              <div key={menu.label} className="relative flex items-center h-full">
                 <div 
                   onClick={(e) => {
                     e.stopPropagation();
@@ -143,7 +143,7 @@ export default function MarketingHome() {
                 >
                    {menu.label} <IconChevronDown />
                 </div>
-                <div className={`absolute top-full left-1/2 -translate-x-1/2 min-w-[200px] bg-[#0b1120] border border-white/10 rounded-b-2xl shadow-2xl transition-all overflow-hidden z-[1010] ${activeMenu === menu.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'}`}>
+                <div className={`absolute top-full left-1/2 -translate-x-1/2 min-w-[200px] bg-[#0b1120] border border-white/10 rounded-b-2xl shadow-2xl transition-all overflow-hidden z-[1010] ${activeMenu === menu.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                   {menu.items.map((sub: any) => (
                     <a key={sub.l} href={sub.p} target={menu.label === 'Lab' ? '_blank' : '_self'} className="block px-7 py-4 text-xs font-bold text-slate-300 hover:bg-white/5 flex items-center gap-4 transition-colors border-b border-white/5 last:border-0 cursor-pointer">
                       {sub.i && <span>{sub.i}</span>}
