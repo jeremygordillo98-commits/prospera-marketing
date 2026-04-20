@@ -92,12 +92,6 @@ export default function MarketingHome() {
 
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
-  useEffect(() => {
-    const handleClickOutside = () => setActiveMenu(null);
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
-
   const getAppUrl = (mode: 'login' | 'register') => {
     const baseUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
     return `${baseUrl}/login?mode=${mode}`;
@@ -121,7 +115,15 @@ export default function MarketingHome() {
 
       {/* NAVBAR REDISEÑADO - ALTURA DECENTE Y COMPONENTES EN FILA */}
       <nav className="w-full fixed top-0 z-[1000] glass-card border-b border-white/5 backdrop-blur-xl h-20 flex items-center">
-        <div className="w-full px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto">
+        {/* Backdrop para cerrar menús al hacer clic fuera */}
+        {activeMenu && (
+          <div 
+            className="fixed inset-0 bg-transparent z-[1005]" 
+            onClick={() => setActiveMenu(null)}
+          />
+        )}
+        
+        <div className="w-full px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto relative z-[1010]">
           <div className="flex items-center gap-2 text-[#00D68F] flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
             <IconChart />
             <span className="text-xl font-black tracking-tighter uppercase text-white">Prospera</span>
@@ -135,15 +137,12 @@ export default function MarketingHome() {
             ].map(menu => (
               <div key={menu.label} className="relative flex items-center h-full">
                 <div 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveMenu(activeMenu === menu.label ? null : menu.label);
-                  }}
-                  className="flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white cursor-pointer transition-colors whitespace-nowrap py-10 md:py-8"
+                  onClick={() => setActiveMenu(activeMenu === menu.label ? null : menu.label)}
+                  className={`flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] transition-colors whitespace-nowrap py-10 md:py-8 cursor-pointer ${activeMenu === menu.label ? 'text-white' : 'text-slate-400 hover:text-white'}`}
                 >
                    {menu.label} <IconChevronDown />
                 </div>
-                <div className={`absolute top-full left-1/2 -translate-x-1/2 min-w-[200px] bg-[#0b1120] border border-white/10 rounded-b-2xl shadow-2xl transition-all overflow-hidden z-[1010] ${activeMenu === menu.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
+                <div className={`absolute top-full left-1/2 -translate-x-1/2 min-w-[200px] bg-[#0b1120] border border-white/10 rounded-b-2xl shadow-2xl transition-all overflow-hidden z-[1020] ${activeMenu === menu.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}>
                   {menu.items.map((sub: any) => (
                     <a key={sub.l} href={sub.p} target={menu.label === 'Lab' ? '_blank' : '_self'} className="block px-7 py-4 text-xs font-bold text-slate-300 hover:bg-white/5 flex items-center gap-4 transition-colors border-b border-white/5 last:border-0 cursor-pointer">
                       {sub.i && <span>{sub.i}</span>}
