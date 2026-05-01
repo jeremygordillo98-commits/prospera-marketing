@@ -132,6 +132,7 @@ export default function MarketingHome() {
           <div className="flex items-center gap-4 md:gap-14 h-full">
             {[
               { label: 'App', items: [{ l: 'Login', p: getAppUrl('login') }, { l: 'Registro', p: getAppUrl('register') }] },
+              { label: 'Precios', items: [{ l: 'Planes y Precios', p: '#precios' }, { l: 'Comparativa', p: '#comparativa' }] },
               { label: 'Pymes', items: [{ l: 'Próximamente', p: '#' }] },
               { label: 'Lab', items: tools.map(t => ({ l: t.title, p: t.path, i: t.icon })) }
             ].map(menu => (
@@ -232,6 +233,58 @@ export default function MarketingHome() {
         </div>
       </section>
 
+      {/* SECCIÓN: COMPARATIVA */}
+      <section id="comparativa" className="py-24 bg-[#0F172A] border-t border-white/5 w-full">
+        <div className="w-full px-6 max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">¿Por qué Prospera?</span>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-tight">Lo que solo <span className="text-[#00D68F]">nosotros</span> hacemos.</h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">La primera app de finanzas personales construida específicamente para la banca ecuatoriana.</p>
+          </div>
+          <div className="overflow-x-auto -mx-6 px-6">
+            <table className="w-full min-w-[640px] border-collapse">
+              <thead>
+                <tr>
+                  <th className="text-left py-4 px-5 text-slate-500 text-xs font-black uppercase tracking-widest border-b border-white/5 w-[34%]">Funcionalidad</th>
+                  <th className="py-4 px-3 text-center border-b border-white/5 w-[16%]">
+                    <div className="bg-[#00D68F]/10 border border-[#00D68F]/30 rounded-xl px-3 py-1.5 inline-block">
+                      <span className="text-[#00D68F] font-black text-sm">Prospera</span>
+                    </div>
+                  </th>
+                  <th className="py-4 px-3 text-center text-slate-500 text-xs font-bold border-b border-white/5">Spendee</th>
+                  <th className="py-4 px-3 text-center text-slate-500 text-xs font-bold border-b border-white/5">Wallet</th>
+                  <th className="py-4 px-3 text-center text-slate-500 text-xs font-bold border-b border-white/5">Money Manager</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { f: 'Importador Banco Pichincha', p: '✅', s: '❌', w: '❌', m: '❌', star: true },
+                  { f: 'Importador Produbanco / Guayaquil / DeUna', p: '✅', s: '❌', w: '❌', m: '❌', star: true },
+                  { f: 'Conciliación Bancaria', p: '✅', s: '❌', w: '❌', m: '❌', star: true },
+                  { f: 'Asistente IA — Chat CFO', p: '✅', s: '❌', w: '❌', m: '❌', star: true },
+                  { f: 'Registro por voz / lenguaje natural', p: '✅', s: '❌', w: '❌', m: '❌', star: true },
+                  { f: 'Presupuestos con 3 umbrales', p: '✅', s: 'Básico', w: 'Básico', m: 'Básico', star: false },
+                  { f: 'Gamificación con insignias reales', p: '✅', s: '❌', w: '❌', m: '❌', star: false },
+                  { f: 'Modo Privacidad', p: '✅', s: '❌', w: '❌', m: '❌', star: false },
+                  { f: 'En español nativo', p: '✅', s: '✅', w: '✅', m: '✅', star: false },
+                  { f: 'Prueba gratuita', p: '30 días', s: '❌', w: '7 días', m: '❌', star: false },
+                  { f: 'Precio de entrada', p: 'desde $0.10', s: '$3.99/mes', w: '€1.99/mes', m: 'Gratis*', star: false },
+                ].map((row, i) => (
+                  <tr key={i} className={`border-b border-white/5 transition-colors hover:bg-white/[0.02] ${row.star ? 'bg-[#00D68F]/[0.03]' : ''}`}>
+                    <td className="py-4 px-5 text-slate-300 text-sm font-semibold">{row.star && <span className="text-[#00D68F] mr-1.5">★</span>}{row.f}</td>
+                    <td className="py-4 px-3 text-center text-sm font-bold text-[#00D68F]">{row.p}</td>
+                    <td className="py-4 px-3 text-center text-sm text-slate-500">{row.s}</td>
+                    <td className="py-4 px-3 text-center text-sm text-slate-500">{row.w}</td>
+                    <td className="py-4 px-3 text-center text-sm text-slate-500">{row.m}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-center text-slate-600 text-xs mt-6">★ Funcionalidades exclusivas de Prospera disponibles únicamente en el mercado ecuatoriano.</p>
+        </div>
+      </section>
+
       {/* SECCIÓN: MURAL COLLAGE */}
       <section className="py-40 w-full bg-[#0F172A] relative overflow-hidden min-h-[950px] flex items-center justify-center">
         <div className="absolute inset-0 z-0 grid grid-cols-5 md:grid-cols-7 lg:grid-cols-10 gap-2 p-2 transform rotate-2 scale-110 pointer-events-none opacity-90">
@@ -247,6 +300,141 @@ export default function MarketingHome() {
           <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Multidispositivo</span>
           <h2 className="text-6xl md:text-9xl font-black text-white mb-8 uppercase tracking-tighter leading-none shadow-black drop-shadow-2xl">Ecosistema <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D68F] to-[#7c3bed]">Ilimitado.</span></h2>
           <p className="text-slate-200 text-xl md:text-2xl font-bold bg-[#0F172A]/40 backdrop-blur-md px-8 py-4 rounded-full border border-white/10 w-fit mx-auto shadow-2xl">Prospera acompaña cada paso de tu vida financiera.</p>
+        </div>
+      </section>
+
+      {/* SECCIÓN: PRECIOS */}
+      <section id="precios" className="py-24 bg-[#0F172A] border-t border-white/5 w-full">
+        <div className="w-full px-6 max-w-7xl mx-auto">
+
+          <div className="text-center mb-16">
+            <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Planes y Precios</span>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-tight">Paga solo por<br/><span className="text-[#00D68F]">lo que usas.</span></h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">Elige cada herramienta de forma individual o ahorra con nuestros combos. Sin contratos, sin sorpresas.</p>
+          </div>
+
+          {/* 30-day trial banner */}
+          <div className="bg-gradient-to-r from-[#00D68F]/10 to-[#059669]/5 border border-[#00D68F]/25 rounded-3xl p-6 md:p-8 mb-16 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-5">
+              <span className="text-5xl flex-shrink-0">🎁</span>
+              <div>
+                <h3 className="text-white font-black text-xl md:text-2xl mb-1">30 días con acceso total. Sin costo.</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">Al registrarte desbloqueas todas las herramientas por 30 días. Después decides exactamente qué quedarte y cuánto pagar.</p>
+              </div>
+            </div>
+            <a href={getAppUrl('register')} className="bg-[#00D68F] text-[#0F172A] font-black px-8 py-3 rounded-2xl text-sm uppercase hover:scale-105 transition-all shadow-lg shadow-[#00D68F]/30 whitespace-nowrap flex-shrink-0">Empezar Gratis →</a>
+          </div>
+
+          {/* Bundles Pro / Ultra */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            {/* PRO */}
+            <div className="relative glass-card rounded-3xl border border-white/10 p-8 flex flex-col">
+              <div className="mb-6">
+                <span className="text-xs font-black uppercase tracking-widest text-slate-400">Plan</span>
+                <h3 className="text-3xl font-black text-white mt-1">Pro</h3>
+                <div className="flex items-end gap-2 mt-3">
+                  <span className="text-5xl font-black text-white">$1.29</span>
+                  <span className="text-slate-400 font-bold mb-2">/mes</span>
+                </div>
+                <p className="text-slate-500 text-xs mt-1">Comprado individualmente: <span className="line-through">$1.70/mes</span> — Ahorras 24%</p>
+              </div>
+              <ul className="space-y-3 flex-1 mb-8">
+                {[
+                  '🎯 Presupuestos Inteligentes',
+                  '🔔 Recordatorios de Pago',
+                  '🗂️ Subcategorías',
+                  '📥 Estado de Cuenta + Importador Bancario',
+                  '💰 Reporte de Patrimonio',
+                  '💧 Reporte de Flujo',
+                  '🏦 Conciliación Bancaria',
+                ].map((f, i) => (
+                  <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
+                    <svg className="w-4 h-4 text-[#00D68F] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={getAppUrl('register')} className="block text-center bg-white/5 hover:bg-[#00D68F]/10 border border-white/10 hover:border-[#00D68F]/40 text-white font-black py-4 rounded-2xl text-sm uppercase transition-all">Empezar con Pro</a>
+            </div>
+
+            {/* ULTRA */}
+            <div className="relative glass-card rounded-3xl border border-[#00D68F]/30 p-8 flex flex-col shadow-xl shadow-[#00D68F]/10">
+              <div className="absolute top-6 right-6 bg-[#00D68F] text-[#0F172A] text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Más Popular</div>
+              <div className="mb-6">
+                <span className="text-xs font-black uppercase tracking-widest text-[#00D68F]">Plan</span>
+                <h3 className="text-3xl font-black text-white mt-1">Ultra</h3>
+                <div className="flex items-end gap-2 mt-3">
+                  <span className="text-5xl font-black text-white">$3.99</span>
+                  <span className="text-slate-400 font-bold mb-2">/mes</span>
+                </div>
+                <p className="text-slate-500 text-xs mt-1">Comprado individualmente: <span className="line-through">$5.90/mes</span> — Ahorras 32%</p>
+              </div>
+              <ul className="space-y-3 flex-1 mb-8">
+                {[
+                  '✅ Todo lo del Plan Pro',
+                  '📈 Reporte Comparativo',
+                  '🔥 Mapa de Calor de Gastos',
+                  '✨ Smart Insights IA',
+                  '🤖 Chat CFO — Asistente IA',
+                  '🪄 Magic Input — Registro por IA',
+                ].map((f, i) => (
+                  <li key={i} className={`flex items-center gap-3 text-sm ${i === 0 ? 'text-[#00D68F] font-bold' : 'text-slate-300'}`}>
+                    <svg className="w-4 h-4 text-[#00D68F] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href={getAppUrl('register')} className="block text-center bg-[#00D68F] hover:scale-[1.02] text-[#0F172A] font-black py-4 rounded-2xl text-sm uppercase transition-all shadow-lg shadow-[#00D68F]/40">Empezar con Ultra</a>
+            </div>
+          </div>
+
+          {/* À-la-carte */}
+          <div>
+            <div className="text-center mb-10">
+              <h3 className="text-white font-black text-2xl md:text-3xl mb-2">O arma tu propio plan</h3>
+              <p className="text-slate-500 text-sm">Paga solo por las herramientas que realmente necesitas. Precios mensuales.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { cat: 'Productividad', color: '#00D68F', items: [
+                  { name: 'Presupuestos Inteligentes', icon: '🎯', price: '0.10' },
+                  { name: 'Recordatorios de Pago', icon: '🔔', price: '0.10' },
+                  { name: 'Subcategorías', icon: '🗂️', price: '0.30' },
+                ]},
+                { cat: 'Reportes', color: '#38bdf8', items: [
+                  { name: 'Estado de Cuenta + Importador', icon: '📥', price: '0.30' },
+                  { name: 'Reporte de Patrimonio', icon: '💰', price: '0.30' },
+                  { name: 'Reporte de Flujo', icon: '💧', price: '0.30' },
+                ]},
+                { cat: 'Análisis', color: '#f97316', items: [
+                  { name: 'Conciliación Bancaria', icon: '🏦', price: '0.30' },
+                  { name: 'Reporte Comparativo', icon: '📈', price: '0.60' },
+                  { name: 'Mapa de Calor', icon: '🔥', price: '0.60' },
+                ]},
+                { cat: 'Inteligencia Artificial', color: '#a78bfa', items: [
+                  { name: 'Smart Insights IA', icon: '✨', price: '1.00' },
+                  { name: 'Chat CFO IA', icon: '🤖', price: '1.00' },
+                  { name: 'Magic Input IA', icon: '🪄', price: '1.00' },
+                ]},
+              ].map((group, gi) => (
+                <div key={gi} className="glass-card rounded-3xl border border-white/5 p-6">
+                  <h4 className="text-xs font-black uppercase tracking-widest mb-4" style={{ color: group.color }}>{group.cat}</h4>
+                  <div className="space-y-3">
+                    {group.items.map((item, ii) => (
+                      <div key={ii} className="flex items-center justify-between gap-2 py-2.5 border-b border-white/5 last:border-0">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-lg flex-shrink-0">{item.icon}</span>
+                          <span className="text-slate-300 text-xs font-semibold leading-tight">{item.name}</span>
+                        </div>
+                        <span className="text-white font-black text-sm flex-shrink-0">${item.price}<span className="text-slate-500 font-normal text-xs">/mes</span></span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-slate-600 text-xs mt-8">* Todos los precios son en USD. Acceso activado manualmente por el administrador dentro de las 24h hábiles de tu solicitud.</p>
+          </div>
         </div>
       </section>
 
