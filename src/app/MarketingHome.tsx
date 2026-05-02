@@ -97,6 +97,11 @@ export default function MarketingHome() {
     return `${baseUrl}/login?mode=${mode}`;
   };
 
+  const getPymesUrl = (mode: 'login' | 'register') => {
+    const baseUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5174' : 'https://pymes.prosperafinanzas.com';
+    return `${baseUrl}/login?mode=${mode}`;
+  };
+
   const tools = [
     { title: 'Detector de Gastos Hormiga', icon: '🐜', path: '/lab/ant' },
     { title: 'Desnudador de Préstamos', icon: '💸', path: '/lab/loan' },
@@ -133,7 +138,7 @@ export default function MarketingHome() {
             {[
               { label: 'App', items: [{ l: 'Login', p: getAppUrl('login') }, { l: 'Registro', p: getAppUrl('register') }] },
               { label: 'Precios', items: [{ l: 'Planes y Precios', p: '#precios' }, { l: 'Comparativa', p: '#comparativa' }] },
-              { label: 'Pymes', items: [{ l: 'Próximamente', p: '#' }] },
+              { label: 'Pymes', items: [{ l: 'Login', p: getPymesUrl('login') }, { l: 'Registro', p: getPymesUrl('register') }] },
               { label: 'Lab', items: tools.map(t => ({ l: t.title, p: t.path, i: t.icon })) }
             ].map(menu => (
               <div key={menu.label} className="relative flex items-center h-full">
