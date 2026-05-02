@@ -110,8 +110,8 @@ export default function MarketingHome() {
   ];
 
   const collageImages = [
-    'Pymes1.png', 'Pymes2.png', 'Pymes3.png', 'Dashboard.png', 'Reportes.png', 
-    'ChatBotIACel.jpeg', 'InicioCel.jpeg', 'ReporteCel.jpeg', 'MovimientosIA.png', 
+    'Pymes1.png', 'Pymes2.png', 'Pymes3.png', 'Dashboard.png', 'Reportes.png',
+    'ChatBotIACel.jpeg', 'InicioCel.jpeg', 'ReporteCel.jpeg', 'MovimientosIA.png',
     'Presupuestos.png', 'ReporteCalorCel.jpeg', 'IngresoCelIA.jpeg'
   ];
 
@@ -314,7 +314,7 @@ export default function MarketingHome() {
 
           <div className="text-center mb-16">
             <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Planes y Precios</span>
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-tight">Paga solo por<br/><span className="text-[#00D68F]">lo que usas.</span></h2>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-tight">Paga solo por<br /><span className="text-[#00D68F]">lo que usas.</span></h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">Elige cada herramienta de forma individual o ahorra con nuestros combos. Sin contratos, sin sorpresas.</p>
           </div>
 
@@ -354,7 +354,7 @@ export default function MarketingHome() {
                   '🏦 Conciliación Bancaria',
                 ].map((f, i) => (
                   <li key={i} className="flex items-center gap-3 text-slate-300 text-sm">
-                    <svg className="w-4 h-4 text-[#00D68F] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg className="w-4 h-4 text-[#00D68F] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
                     {f}
                   </li>
                 ))}
@@ -384,7 +384,7 @@ export default function MarketingHome() {
                   '🪄 Magic Input — Registro por IA',
                 ].map((f, i) => (
                   <li key={i} className={`flex items-center gap-3 text-sm ${i === 0 ? 'text-[#00D68F] font-bold' : 'text-slate-300'}`}>
-                    <svg className="w-4 h-4 text-[#00D68F] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg className="w-4 h-4 text-[#00D68F] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
                     {f}
                   </li>
                 ))}
@@ -401,26 +401,34 @@ export default function MarketingHome() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { cat: 'Productividad', color: '#00D68F', items: [
-                  { name: 'Presupuestos Inteligentes', icon: '🎯', price: '0.10' },
-                  { name: 'Recordatorios de Pago', icon: '🔔', price: '0.10' },
-                  { name: 'Subcategorías', icon: '🗂️', price: '0.30' },
-                ]},
-                { cat: 'Reportes', color: '#38bdf8', items: [
-                  { name: 'Estado de Cuenta + Importador', icon: '📥', price: '0.30' },
-                  { name: 'Reporte de Patrimonio', icon: '💰', price: '0.30' },
-                  { name: 'Reporte de Flujo', icon: '💧', price: '0.30' },
-                ]},
-                { cat: 'Análisis', color: '#f97316', items: [
-                  { name: 'Conciliación Bancaria', icon: '🏦', price: '0.30' },
-                  { name: 'Reporte Comparativo', icon: '📈', price: '0.60' },
-                  { name: 'Mapa de Calor', icon: '🔥', price: '0.60' },
-                ]},
-                { cat: 'Inteligencia Artificial', color: '#a78bfa', items: [
-                  { name: 'Smart Insights IA', icon: '✨', price: '1.00' },
-                  { name: 'Chat CFO IA', icon: '🤖', price: '1.00' },
-                  { name: 'Magic Input IA', icon: '🪄', price: '1.00' },
-                ]},
+                {
+                  cat: 'Productividad', color: '#00D68F', items: [
+                    { name: 'Presupuestos Inteligentes', icon: '🎯', price: '0.10' },
+                    { name: 'Recordatorios de Pago', icon: '🔔', price: '0.10' },
+                    { name: 'Subcategorías', icon: '🗂️', price: '0.30' },
+                  ]
+                },
+                {
+                  cat: 'Reportes', color: '#38bdf8', items: [
+                    { name: 'Estado de Cuenta + Importador', icon: '📥', price: '0.30' },
+                    { name: 'Reporte de Patrimonio', icon: '💰', price: '0.30' },
+                    { name: 'Reporte de Flujo', icon: '💧', price: '0.30' },
+                  ]
+                },
+                {
+                  cat: 'Análisis', color: '#f97316', items: [
+                    { name: 'Conciliación Bancaria', icon: '🏦', price: '0.30' },
+                    { name: 'Reporte Comparativo', icon: '📈', price: '0.60' },
+                    { name: 'Mapa de Calor', icon: '🔥', price: '0.60' },
+                  ]
+                },
+                {
+                  cat: 'Inteligencia Artificial', color: '#a78bfa', items: [
+                    { name: 'Smart Insights IA', icon: '✨', price: '1.00' },
+                    { name: 'Chat CFO IA', icon: '🤖', price: '1.00' },
+                    { name: 'Magic Input IA', icon: '🪄', price: '1.00' },
+                  ]
+                },
               ].map((group, gi) => (
                 <div key={gi} className="glass-card rounded-3xl border border-white/5 p-6">
                   <h4 className="text-xs font-black uppercase tracking-widest mb-4" style={{ color: group.color }}>{group.cat}</h4>
