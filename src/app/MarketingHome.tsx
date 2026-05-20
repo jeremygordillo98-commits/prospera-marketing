@@ -92,6 +92,33 @@ export default function MarketingHome() {
 
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
+  // Estado para el formulario de Pymes
+  const [leadForm, setLeadForm] = useState({ name: '', role: 'Contador', email: '', phone: '' });
+  const [leadStatus, setLeadStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmitProforma = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadForm.name || !leadForm.email) return;
+    setLeadStatus('loading');
+    try {
+      // Usamos el cliente de supabase público que ya tienes configurado en el landing
+      const { error } = await supabase.from('pymes_leads').insert([
+        { 
+          nombre: leadForm.name, 
+          rol: leadForm.role, 
+          email: leadForm.email, 
+          celular: leadForm.phone 
+        }
+      ]);
+      if (error) throw error;
+      setLeadStatus('success');
+      setLeadForm({ name: '', role: 'Contador', email: '', phone: '' });
+    } catch (err) {
+      console.error(err);
+      setLeadStatus('error');
+    }
+  };
+
   const getAppUrl = (mode: 'login' | 'register') => {
     const baseUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5173' : 'https://app.prosperafinanzas.com';
     return `${baseUrl}/login?mode=${mode}`;
@@ -313,7 +340,7 @@ export default function MarketingHome() {
         <div className="w-full px-6 max-w-7xl mx-auto">
 
           <div className="text-center mb-16">
-            <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Planes y Precios</span>
+            <span className="text-[#00D68F] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Prospera App (Finanzas Personales)</span>
             <h2 className="text-4xl md:text-6xl font-black text-white mb-4 tracking-tighter leading-tight">Paga solo por<br /><span className="text-[#00D68F]">lo que usas.</span></h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">Elige cada herramienta de forma individual o ahorra con nuestros combos. Sin contratos, sin sorpresas.</p>
           </div>
@@ -447,6 +474,87 @@ export default function MarketingHome() {
               ))}
             </div>
             <p className="text-center text-slate-600 text-xs mt-8">* Todos los precios son en USD. Acceso activado manualmente por el administrador dentro de las 24h hábiles de tu solicitud.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECCIÓN: PYMES PROFORMA */}
+      <section id="pymes-proforma" className="py-24 bg-[#0F172A] border-t border-white/5 w-full relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#7c3bed]/10 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
+        <div className="w-full px-6 max-w-5xl mx-auto relative z-10">
+          
+          <div className="text-center mb-12">
+            <span className="text-[#7c3bed] text-xs font-black uppercase tracking-[0.5em] mb-4 block">Prospera Pymes (B2B)</span>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tighter leading-tight">Lleva tu despacho contable al <span className="text-[#7c3bed]">siguiente nivel.</span></h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">Solicita una proforma personalizada y descubre cómo automatizar tu ATS hoy mismo.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-slate-900/50 p-8 md:p-12 rounded-[3rem] border border-white/10 shadow-2xl backdrop-blur-md">
+            
+            {/* Formulario */}
+            <div>
+              <h3 className="text-2xl font-black text-white mb-6">Solicitar Proforma</h3>
+              {leadStatus === 'success' ? (
+                <div className="bg-[#00D68F]/10 border border-[#00D68F]/30 p-6 rounded-2xl text-center">
+                  <div className="text-4xl mb-4">🎉</div>
+                  <h4 className="text-white font-bold text-lg mb-2">¡Solicitud enviada con éxito!</h4>
+                  <p className="text-slate-400 text-sm">Nuestro equipo se pondrá en contacto contigo muy pronto para enviarte la proforma.</p>
+                  <button onClick={() => setLeadStatus('idle')} className="mt-6 text-[#00D68F] font-bold text-sm hover:underline">Enviar otra solicitud</button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmitProforma} className="space-y-4">
+                  <div>
+                    <label className="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Nombre Completo</label>
+                    <input required type="text" value={leadForm.name} onChange={e => setLeadForm({...leadForm, name: e.target.value})} className="w-full bg-[#0F172A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7c3bed] transition-colors" placeholder="Ej. Juan Pérez" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Tu Rol</label>
+                    <select value={leadForm.role} onChange={e => setLeadForm({...leadForm, role: e.target.value})} className="w-full bg-[#0F172A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7c3bed] transition-colors appearance-none">
+                      <option value="Contador">Contador / Estudio Contable</option>
+                      <option value="Emprendedor">Dueño de Negocio / Emprendedor</option>
+                      <option value="Otro">Otro</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Correo Electrónico</label>
+                    <input required type="email" value={leadForm.email} onChange={e => setLeadForm({...leadForm, email: e.target.value})} className="w-full bg-[#0F172A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7c3bed] transition-colors" placeholder="tucorreo@empresa.com" />
+                  </div>
+                  <div>
+                    <label className="block text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Celular (Opcional)</label>
+                    <input type="tel" value={leadForm.phone} onChange={e => setLeadForm({...leadForm, phone: e.target.value})} className="w-full bg-[#0F172A] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7c3bed] transition-colors" placeholder="+593 99 999 9999" />
+                  </div>
+                  {leadStatus === 'error' && <p className="text-red-400 text-sm mt-2">Hubo un error al enviar. Por favor intenta de nuevo.</p>}
+                  <button type="submit" disabled={leadStatus === 'loading'} className="w-full bg-[#7c3bed] hover:bg-[#6d28d9] text-white font-black py-4 rounded-xl transition-all shadow-lg shadow-[#7c3bed]/20 mt-4 disabled:opacity-50">
+                    {leadStatus === 'loading' ? 'Enviando...' : 'Obtener Cotización →'}
+                  </button>
+                </form>
+              )}
+            </div>
+
+            {/* Alternativa Contacto Directo */}
+            <div className="flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/10 pt-8 md:pt-0 md:pl-12">
+              <h3 className="text-xl font-bold text-white mb-4">¿Prefieres escribirnos directamente?</h3>
+              <p className="text-slate-400 text-sm mb-8 leading-relaxed">Puedes enviarnos un correo solicitando tu proforma. Cuéntanos brevemente sobre tu negocio o clientes para ajustarnos a tus necesidades.</p>
+              
+              <div className="space-y-4">
+                <a href="mailto:soporte@prosperafinanzas.com" className="group flex items-center gap-4 bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors border border-white/5 cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-[#7c3bed]/20 flex items-center justify-center text-[#7c3bed] group-hover:scale-110 transition-transform">✉️</div>
+                  <div>
+                    <p className="text-white font-bold text-sm">Ventas y B2B</p>
+                    <p className="text-slate-400 text-xs">soporte@prosperafinanzas.com</p>
+                  </div>
+                </a>
+                
+                <a href="mailto:prosperaapp.soporte@gmail.com" className="group flex items-center gap-4 bg-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors border border-white/5 cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-[#00D68F]/20 flex items-center justify-center text-[#00D68F] group-hover:scale-110 transition-transform">✉️</div>
+                  <div>
+                    <p className="text-white font-bold text-sm">Soporte General</p>
+                    <p className="text-slate-400 text-xs">prosperaapp.soporte@gmail.com</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
