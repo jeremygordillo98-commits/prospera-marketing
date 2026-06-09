@@ -21,16 +21,16 @@ export default function AntExpenses({ onRegister }: AntExpensesProps) {
   return (
     <div className="flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="text-center">
-        <h3 className="text-3xl font-black text-white mb-2">🐜 Detector de Gastos Hormiga</h3>
-        <p className="text-slate-400">Descubre cuánto te están robando esos "pequeños gustitos" diarios.</p>
+        <h3 className="font-headline-lg text-headline-lg text-text-primary mb-2">🐜 Detector de Gastos Hormiga</h3>
+        <p className="text-text-secondary font-body-md">Descubre cuánto te están robando esos "pequeños gustitos" diarios.</p>
       </div>
 
-      <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
-        <label className="block text-sm font-bold text-slate-300 mb-4 uppercase tracking-wider">
+      <div className="bg-surface-container-low/50 p-6 rounded-2xl border border-glass">
+        <label className="block text-xs font-bold text-text-secondary mb-4 uppercase tracking-wider">
           ¿Cuánto gastas al día en café, snacks o cigarrillos?
         </label>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-[#00D68F] font-black">$</span>
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-primary font-black">$</span>
           <input 
             type="text" 
             inputMode="decimal"
@@ -39,7 +39,7 @@ export default function AntExpenses({ onRegister }: AntExpensesProps) {
               const val = e.target.value.replace(/[^0-9.,]/g, '');
               setDailyInput(val);
             }}
-            className="w-full bg-slate-900 border-2 border-slate-700 rounded-xl py-4 pl-12 pr-4 text-3xl font-black text-white outline-none focus:border-[#00D68F] transition-all"
+            className="w-full bg-surface-container-lowest/80 border border-glass rounded-xl py-4 pl-12 pr-4 text-3xl font-black text-text-primary outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
             placeholder="0.00"
           />
         </div>
@@ -54,24 +54,24 @@ export default function AntExpenses({ onRegister }: AntExpensesProps) {
         ].map((item, i) => (
           <div 
             key={i}
-            className={`p-6 rounded-2xl border ${item.highlight ? 'bg-[#00D68F]/10 border-[#00D68F]/30' : 'bg-slate-800/30 border-slate-700/50'}`}
+            className={`p-6 rounded-2xl border transition-all duration-300 hover:scale-[1.02] ${item.highlight ? 'bg-primary/10 border-primary/30' : 'bg-surface-container-lowest/40 border-glass'}`}
           >
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{item.label}</p>
-            <p className={`text-2xl font-black ${item.highlight ? 'text-[#00D68F]' : 'text-white'}`}>
+            <p className="text-[10px] font-bold text-text-secondary uppercase tracking-widest mb-1">{item.label}</p>
+            <p className={`text-2xl font-black ${item.highlight ? 'text-primary' : 'text-text-primary'}`}>
               {formatCurrency(item.value)}
             </p>
-            <p className="text-xs text-slate-400 mt-1 italic">{item.sub}</p>
+            <p className="text-xs text-text-secondary mt-1 italic">{item.sub}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-[#EF4444]/10 p-6 rounded-2xl border border-[#EF4444]/30 text-center">
-        <p className="text-[#EF4444] font-bold text-lg mb-4">
+      <div className="bg-error/10 p-6 rounded-2xl border border-error/20 text-center">
+        <p className="text-error font-bold text-lg mb-4">
            ⚠️ Estás perdiendo una pequeña fortuna sin darte cuenta.
         </p>
         <button 
           onClick={onRegister}
-          className="w-full bg-gradient-to-r from-[#00D68F] to-[#059669] text-[#0F172A] font-black text-lg py-4 rounded-xl shadow-lg hover:shadow-[0_0_25px_rgba(0,214,143,0.4)] transition-all transform hover:-translate-y-1"
+          className="w-full bg-primary-container text-on-primary-container font-black text-lg py-4 rounded-xl shadow-lg hover:shadow-[0_0_20px_rgba(124,59,237,0.4)] transition-all hover:scale-[1.02]"
         >
           Empezar a controlar mis gastos 🚀
         </button>

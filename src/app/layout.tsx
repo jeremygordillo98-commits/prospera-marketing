@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
 });
 
@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     icon: "/pwa-icon.png",
     apple: "/pwa-icon.png",
   },
+};
+
+export const viewport = {
   themeColor: "#0f172a",
 };
 
@@ -34,9 +37,10 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://app.prosperafinanzas.com" />
         <link rel="dns-prefetch" href="https://app.prosperafinanzas.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${outfit.variable} ${plusJakartaSans.variable} antialiased`}
       >
         {children}
         <GoogleAnalytics gaId="G-S4WMLC1REB" />
