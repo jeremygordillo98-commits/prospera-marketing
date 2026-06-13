@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 
 interface NavbarProps {
-  activeTab?: 'pymes' | 'personas' | 'nosotros' | 'laboratorio';
+  activeTab?: 'pymes' | 'personas' | 'nosotros' | 'laboratorio' | 'noticias';
   hideButtons?: boolean;
 }
 
@@ -34,6 +34,7 @@ export default function Navbar({ activeTab, hideButtons = false }: NavbarProps) 
   const shadowGlowClass = 
     activeTab === 'personas' ? 'hover:shadow-[0_0_20px_rgba(0,214,143,0.4)]' :
     activeTab === 'nosotros' ? 'hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]' :
+    activeTab === 'noticias' ? 'hover:shadow-[0_0_20px_rgba(124,59,237,0.4)]' :
     'hover:shadow-[0_0_20px_rgba(124,59,237,0.4)]'; // default/violet for pymes
 
   const activeClass = "text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md transition-colors duration-300";
@@ -58,6 +59,9 @@ export default function Navbar({ activeTab, hideButtons = false }: NavbarProps) 
           </Link>
           <Link className={activeTab === 'nosotros' ? activeClass : inactiveClass} href="/nosotros">
             Nosotros
+          </Link>
+          <Link className={activeTab === 'noticias' ? activeClass : inactiveClass} href="/noticias">
+            Noticias
           </Link>
           
           {/* Dropdown Laboratorio */}
