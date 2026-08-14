@@ -43,7 +43,7 @@ export default function RootLayout({
         className={`${outfit.variable} ${plusJakartaSans.variable} antialiased`}
       >
         {children}
-        <GoogleAnalytics gaId="G-S4WMLC1REB" />
+        <GoogleAnalytics gaId="G-P1XQS1WPC7" />
       </body>
     </html>
   );
